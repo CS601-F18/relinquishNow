@@ -1,0 +1,4 @@
+**.pyc
+packages/**
+var/log/**
+webapp/**/migrations/**
