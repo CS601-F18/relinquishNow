@@ -1,5 +1,5 @@
 # Requirements:
-   1. To develop a mobile application which could help the homeless to gather resources in need.
+   1. To develop a web application which could help the homeless to gather resources in need.
    2. Users with excess(Helper) goods update information of items at a particular location
    3. Items are indexed based on location of item and item types
    4. Users with need of goods(Needer) will search for relevant items and request for item from a particular user.
