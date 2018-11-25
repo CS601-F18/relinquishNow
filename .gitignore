@@ -1,4 +1,5 @@
 **.pyc
 packages/**
 var/log/**
-webapp/**/migrations/**
+relinquishnow/**/migrations/**
+reliquishnow/**/fixtures/**
