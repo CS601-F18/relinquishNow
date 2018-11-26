@@ -14,6 +14,7 @@
   </head>
   <body>
     <div class="app-main container">
+      {% include 'header.html' %}
       {% block header %}
       <div class="row">
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white justify-content-between">
@@ -44,7 +45,7 @@
       <div class="row image-slider-container bg-grey">
         <div class="image-slider">
           <div class="image-search mx-auto">
-            <h2 class="mt-3">Listen to all the tailored recommendations at one stop music shop for free</h2>
+            <h2 class="mt-3">Providing necessary support to the homeless and less privileged</h2>
           </div>
         </div>
       </div>
@@ -72,7 +73,7 @@
         </div>
         <div class="col-md-11 m-auto underline"></div>
         <div class="col-md-11 m-auto text-center py-4">
-          <h3><b>Sign Up for TVAlly!</b></h3>
+          <h3><b>Sign Up for RelinquishNow!</b></h3>
           <p class="grey-text text-center">Be a part of a unique musical experience. Find, listen, connect and grow with the only platform for all your music needs.</p>
           <button class="btn btn-lg mx-2 artist-register"><b>Artists </b><i class="fas fa-user-plus"></i></button>
           <button class="btn btn-lg bg-blue mx-2 patron-register"><b>Patrons </b><i class="fas fa-user"></i></button>
@@ -193,7 +194,7 @@
         <div class="col-11 m-auto">
           <div class="row align-center pb-5">
             <div class="col-md-5 pt-5">
-              <h4 class="font-red">About TVAlly</h4>
+              <h4 class="font-red">About RelinquishNow</h4>
               <hr>
               <p>TVAlly is a music platform which connects listeners and artists providing Discovery, Streaming and Social Connectivity. Our vision is to connect people, using the power of music. We provide tailored recommendations to you using our ML based in-house Recommender System (RecomAlly) from a repository of tracks and artists you would want to know and love. TVAlly is also a platform for artists with multitude of features to showcase the world about their brilliance and innovation.</p>
               <a href="/team" class="btn bg-red">Learn More</a>
@@ -259,6 +260,7 @@
   <script src="/static/js/popper.min.js" type="application/javascript"></script>
   <script src="/static/js/moment.min.js" type="application/javascript"></script>
   <script src="/static/js/bootstrap.min.js" type="application/javascript"></script>
+  <script src="/static/js/jquery.form-validator.min.js" type="application/javascript"></script>
   <script src="/static/js/app.js" type="application/javascript"></script>
   {% endblock %}
   {% block inline_js %}

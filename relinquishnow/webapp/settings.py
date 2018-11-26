@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'webapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'recitedverse_dev',
+        'NAME': 'relinquishnow_dev',
         'USER': 'root',
         'PASSWORD': 'password',
         'HOST': '127.0.0.1',

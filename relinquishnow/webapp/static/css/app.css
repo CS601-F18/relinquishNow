@@ -159,11 +159,16 @@
  
 /* NavBar CSS Begins */
 
+
 .app-main.container .navbar {
   width: 100%;
   -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
   -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
   box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+.app-main.container .nav-padding {
+  height: 77px;
 }
 
 .app-main.container .navbar-nav li a {
@@ -224,18 +229,9 @@
   transition: width .5s ease, background-color .5s ease;
 }
 
-.app-main.container .navbar-nav .current-active:after {
-  background: #ff9a00;
-  width: 100%;
-}
-
 .app-main.container .navbar-nav a:hover:after {
   width: 100%;
   background: #ffffff;
-}
-
-.nav-padding {
-  height: 77px;
 }
 
 .navbar .search-small {
@@ -270,282 +266,7 @@
   font-size: 0.85rem;
 }
 
-/* css added for issue-181*/
-
-@media (max-width: 1000px) {
-  .app-main.container .navbar .dropdown-menu {
-    left:40%;
-  }
-}
-
-@media (max-width: 900px) {
-  .app-main.container .navbar .dropdown-menu{
-    left:40%;
-  }
-}
-
-
 /* NavBar CSS Ends */
-
-
-/* JPlayer CSS Begins */
-
-.footer-padding {
-  height: 70px;
-}
-
-.player {
-  background-color: #333;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-#jp_container_1.jp-video {
-  border: none;
-  background-color: transparent;
-  z-index: 99999;
-}
-
-#jp_container.jp-video .media-player {
-  webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .17);
-  -moz-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .17);
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .17);
-  -o-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .17);
-  -ms-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .17);
-}
-
-#jp_container_1.jp-video .jp-interface {
-  border: none;
-  background-color: #ffffff;
-  height: 70px;
-}
-
-#jp_container_1 .jp-seek-bar {
-  background: #dd232560;
-}
-
-#jp_container_1 .jp-play-bar {
-  background: #dd2325;
-}
-
-#jp_container_1 .jp-details {
-  background-color: #ffffff;
-  display: flex !important;
-  height: 70px;
-  border-right: 1px solid rgba(0, 0, 0, .1);
-  border-top: 1px solid rgba(0, 0, 0, .1);
-  vertical-align: middle;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-#jp_container_1 .jp-details .jp-poster img {
-  height: 50px;
-}
-
-#jp_container_1 .jp-playlist-wrapper {
-  position: absolute;
-  left: 15px;
-  bottom: 70px;
-  width: auto;
-  display: none;
-}
-
-#jp_container_1 .jp-playlist {
-  background-color: #ffffff;
-  transition: visibility 0s, opacity 0.5s linear;
-  opacity: 0;
-  visibility: hidden;
-}
-
-#jp_container_1 .jp-playlist.show {
-  visibility: visible;
-  opacity: 1;
-}
-
-#jp_container_1 .jp-playlist {
-  background-color: #ffffff;
-}
-
-#jp_container_1 .jp-controls-holder {
-  width: auto;
-  height: 100%;
-  vertical-align: middle;
-  align-items: center;
-  justify-content: flex-start;
-  display: flex;
-  top: 0px;
-}
-
-#jp_container_1 .jp-controls-holder .jp-controls,
-#jp_container_1 .jp-controls-holder .jp-volume-controls {
-  display: flex;
-  width: auto;
-  height: 100%;
-  align-items: center;
-}
-
-#jp_container_1 .jp-controls-holder .jp-volume-controls {
-  justify-content: flex-end;
-}
-
-#jp_container_1 .jp-controls-holder .jp-toggles {
-  position: relative;
-  display: flex;
-  top: -8px;
-  width: auto;
-}
-
-.jp-volume-controls .jp-volume-bar {
-  top: -3px;
-  left: -15px;
-  width: 100px;
-  height: 8px;
-  position: relative;
-  background: #dd232560;
-  padding: 0px;
-}
-
-.jp-volume-controls .jp-volume-bar-value {
-  height: 8px;
-  background: #dd2325;
-}
-
-.jp-volume-controls .jp-mute,
-.jp-volume-controls .jp-volume-max {
-  width: 28px;
-  height: 28px;
-}
-
-.jp-volume-controls .jp-next,
-.jp-volume-controls .jp-prev {
-  width: 20px;
-  height: 20px;
-}
-
-.jp-controls-holder .jp-controls .jp-previous,
-.jp-controls-holder .jp-controls .jp-next,
-.jp-controls-holder .jp-volume-controls .jp-mute,
-.jp-controls-holder .jp-volume-controls .jp-volume-max,
-.jp-controls-holder .jp-controls .jp-play,
-.jp-controls-holder .jp-controls .jp-pause .jp-controls-holder .jp-repeat,
-.jp-controls-holder .jp-shuffle {
-  background: none;
-  cursor: pointer;
-}
-
-.jp-controls-holder .jp-controls .jp-play,
-.jp-controls-holder .jp-controls .jp-pause {
-  width: 35px;
-  height: 35px;
-  margin-right: -4px;
-  font-size: 0.95rem;
-}
-
-.jp-controls-holder .jp-current-time,
-.jp-controls-holder .jp-duration,
-.jp-time-divider {
-  font-size: 1rem;
-  font-weight: 700;
-  width: auto;
-  top: -2px;
-  position: relative;
-}
-
-.jp-time-divider {
-  font-weight: normal;
-}
-
-#jp_container_1 .jp-volume-controls {
-  top: 0px;
-  left: 0px;
-  position: relative;
-}
-
-#jp_container_1 .jp-repeat-all,
-#jp_container_1 .jp-shuffle-all {
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  border-radius: 50%;
-  padding-top: 2px;
-  cursor: pointer;
-}
-
-#jp_container_1 .jp-repeat-all.on,
-#jp_container_1 .jp-shuffle-all.on {
-  background: #cecece;
-}
-
-#jp_container_1 .jp-repeat-all.repeat-one {
-  padding-left: 5px;
-  background: #cecece;
-}
-
-#jp_container_1 .jp-repeat-all span {
-  position: relative;
-  left: -12px;
-  top: 3px;
-  font-size: 0.9rem;
-  display: none;
-}
-
-#jp_container_1 .jp-repeat-all.repeat-one span {
-  display: inline-block;
-}
-
-
-/*JPlayer CSS Ends */
-
-
-/* Home Page Carousel CSS Begins */
-
-@-webkit-keyframes bg {
-  from {
-    background-position: 0% 0%;
-  }
-  to {
-    background-position: 0% 100%;
-  }
-}
-
-@-moz-keyframes bg {
-  from {
-    background-position: 0% 0%;
-  }
-  to {
-    background-position: 0% 100%;
-  }
-}
-
-@-ms-keyframes bg {
-  from {
-    background-position: 0% 0%;
-  }
-  to {
-    background-position: 0% 100%;
-  }
-}
-
-@-o-keyframes bg {
-  from {
-    background-position: 0% 0%;
-  }
-  to {
-    background-position: 0% 100%;
-  }
-}
-
-@keyframes bg {
-  from {
-    background-position: 0% 0%;
-  }
-  to {
-    background-position: 0% 100%;
-  }
-}
-
 .image-slider-container {
   width: auto;
 }
@@ -554,7 +275,7 @@
   width: 100%;
   padding: 16% 10%;
   text-align: center;
-  background-image: url('/static/images/home-slider-01.jpg');
+  background-image: url('/static/images/slider01.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   -webkit-transition: opacity 0.25s linear;
@@ -604,8 +325,6 @@
 .image-search h2 {
   height: 120px;
 }
-
-
 /* Home Page Carousel Carousel CSS Ends */
 
 

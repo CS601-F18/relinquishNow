@@ -15,12 +15,10 @@ $(document).ready(function() {
         "url('/static/images/home-slider-06.jpg')",
     );
     var tags = new Array(
-        "Listen to all the tailored recommendations at one stop music shop for free",
-        "Connect with your favorite artists and discover the raw and enormous music talent",
-        "Be socially active about music with your friends",
-        "Let people explore your artistic endeavors and make money out of it",
-        "Connect with your listeners and also, be socially updated by joining other artists",
-        "Find your right audience and build a career by making them go awe!!!",
+        "Providing necessary support to the homeless and less previleged",
+        "Connect with assistance centres and facilities near your locality",
+        "Raise support to your cause or volunteer providing support",
+        "Donating your used items directly or through assitance centres",
     );
     var current = 0;
 
@@ -28,7 +26,6 @@ $(document).ready(function() {
         current++;
         current = current % backgrounds.length;
         $(".image-slider").removeClass("hover").css({
-            'background-image': backgrounds[current],
             '-webkit-animation': 'bg 30s linear infinite',
         })
         $(".image-slider h2").text(tags[current]);
@@ -197,7 +194,7 @@ $(document).ready(function() {
             }
             $.ajax({
                 type: "POST",
-                url: "/authenticate/",
+                url: "/login/",
                 data: formData,
                 beforeSend: function() {
                     $(".fa-spinner", $("#login-form-submit")).css('display', 'inline-block');
