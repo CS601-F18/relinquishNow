@@ -8,7 +8,7 @@ from django.middleware import csrf
 from django.shortcuts import render
 from django.views import View
 
-from relinquishnow.api.models import User
+from api.models import User
 
 
 class Index(View):
@@ -66,22 +66,18 @@ class SignUp(View):
         if request.method == 'POST':
             user_first_name = request.POST.get("user_first_name")
             user_last_name = request.POST.get("user_last_name")
-            user_type = request.POST.get("user_type")
             user_email = request.POST.get("user_email")
             user_password = request.POST.get("user_password")
             user_phone = request.POST.get("user_phone")
-            validation_id = str(uuid.uuid1())
     
             if not User.objects.filter(user_email=user_email).exists():
                 try:
                     user_register_obj = User(
                         user_first_name=user_first_name,
                         user_last_name=user_last_name,
-                        user_type=user_type,
                         user_email=user_email,
                         user_phone=user_phone,
-                        password=user_password,
-                        validation_id=validation_id)
+                        password=user_password)
     
                     user_register_obj.full_clean()
                     user_register_obj.set_password(user_password)
@@ -93,8 +89,9 @@ class SignUp(View):
                 except ValidationError:
                     response_data["error_reason"] = "Invalid Data Types"
                     response_data["http_status_code"] = 412
-                except:
-                    response_data["error_reason"] = "Error while sending email"
+                except Exception as e:
+                    print(e)
+                    response_data["error_reason"] = "Error while saving user sign up information"
             else:
                 response_data["error_reason"] = "Email already registered"
         else:

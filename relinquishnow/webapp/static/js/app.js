@@ -153,7 +153,7 @@ $(document).ready(function() {
             }
             $.ajax({
                 type: "POST",
-                url: "/register/submit/",
+                url: "/signup/",
                 data: formData,
                 beforeSend: function() {
                     $(".fa-spinner", $("#sign-up-form-submit")).css('display', 'inline-block');
@@ -161,7 +161,7 @@ $(document).ready(function() {
                 },
                 success: function() {
                     $("#sign-up-form .valid-feedback").show();
-                    window.location.href = "/register/confirm/";
+                    window.location.href = "/login/";
                 },
                 error: function(xhr) {
                     json_data = JSON.parse(xhr.responseText)
