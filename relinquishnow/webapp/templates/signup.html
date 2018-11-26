@@ -1,0 +1,108 @@
+{% extends 'index.html' %}
+{% block slider %}
+{% endblock %}
+{% block main %}
+<div class="row main-intro sign-up">
+  <div class="col-md-11 text-center m-auto sign-up-container card">
+    <div class="card-body">
+      <div class="form-header py-4">
+        <h3>REGISTER</h3>
+      </div>
+      <div class="col-md-11 underline m-auto"></div>
+      <div class="row py-5 justify-content-between">
+        <div class="col-md-5">
+          <div class="row">
+            <div class="col-md-2">
+              <i class="fas fa-heartbeat fa-2x font-red"></i>
+            </div>
+            <div class="col-md-10 text-left">
+              <h5 class="mb-3 font-weight-bold">Discover your Celebrity</h5>
+              <p>Bored of listening to monotonous music? Our platform enables you to discover new artists. Follow your favourite ones and get a chance to avail exclusive content.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+              <i class="far fa-chart-bar fa-2x font-red"></i>
+            </div>
+            <div class="col-md-10 text-left">
+              <h5 class="mb-3 font-weight-bold">Streaming with RecomAlly</h5>
+              <p>We offer you the future of streaming in the present. We blend music with machine learning (RecomAlly), to provide tailored recommendations so that you can listen to the kind of music you would love.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+              <i class="fab fa-itunes-note fa-2x font-red"></i>
+            </div>
+            <div class="col-md-10 text-left">
+              <h5 class="mb-3 font-weight-bold">Tune in with other Folks</h5>
+              <p>TVAlly offers you a unique experience to explore, enhance and enjoy the music with no boundaries by socially connecting with your friends with similar tastes.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <form id="sign-up-form">
+            <div class="input-group">
+              <div class="md-form">
+                <i class="fa fa-user prefix"></i>
+                <label for="user_first_name">First Name</label>
+                <input id="user_first_name" name="user_first_name" maxlength="64" required="required" type="text">
+              </div>
+              <div class="md-form">
+                <i class="prefix"></i>
+                <label for="user_last_name">Last Name</label>
+                <input id="user_last_name" name="user_last_name" maxlength="64" required="required" type="text">
+              </div>
+            </div>
+            <div class="input-group d-none">
+              <div class="md-form">
+                <i class="fa fa-user prefix"></i>
+                <label for="user_type">User Type</label>
+                <input id="user_type" name="user_type" value="{% if user_type == 'artist' %}1{% else %}0{% endif %}"required="required" type="text">
+              </div>
+            </div>
+            <div class="input-group">
+              <div class="md-form">
+                <i class="fa fa-envelope prefix"></i>
+                <label for="user_email">Your email</label>
+                <input id="user_email" name="user_email" data-validation="email" data-validation-error-msg="Enter a valid e-mail" type="email" required="required">
+              </div>
+            </div>
+            <div class="input-group">
+              <div class="md-form">
+                <i class="fa fa-mobile-alt prefix"></i>
+                <label for="user_phone">Mobile No</label>
+                <input id="user_phone" name="user_phone" data-validation="length" minlength="10" maxlength="12" type="number" class="no-spin" required="required" data-validation-error-msg="Contact number must be at least 10 characters. Numbers Only">
+              </div>
+            </div>
+            <div class="input-group">
+              <div class="md-form">
+                <i class="fas fa-lock prefix"></i>
+                <label for="user_password">Password</label>
+                 <input id="user_password" minlength="8" type="password" name="user_password" required="required">
+              </div>
+            </div>
+            <div class="input-group">
+              <div class="md-form ">
+                <i class="fas fa-lock prefix"></i>
+                <label for="user_password_confirm">Confirm Password</label>
+                <input id="user_password_confirm" type="password" equalTo="#user_password" name="user_password_confirm" required="required" data-validation-error-msg="does not match your password">
+              </div>
+            </div>
+            <div class="text-center">
+              <button class="btn bg-orange px-5 py-2 font-weight-bold" id="sign-up-form-submit" value="Validate">Sign Up
+                <i class="fa fa-spinner fa-spin ml-2" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="valid-feedback col-md-12 font-weight-bold text-center">User Registered Succesfully!</div>
+            <div class="invalid-feedback col-md-12 font-weight-bold text-center">Error while Registration!</div>
+            <div class="text-center py-4">
+              <button class="btn bg-facebook font-weight-bold py-2 mx-2 d-none"><i class="fab fa-facebook-f mr-2"></i> Login with Facebook</button>
+              <button class="btn bg-google font-weight-bold py-2 mx-2 d-none"><i class="fab fa-google mr-2"></i> SignIn with Google</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

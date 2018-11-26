@@ -7,11 +7,12 @@
     <link rel="shortcut icon" href="/static/images/favicon.png" type="image/png">
     {% block css %}
     <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/fontawesome-all.min.css"  rel="stylesheet" type="text/css">
     <link href="/static/css/app.css" rel="stylesheet" type="text/css">
     {% endblock %}
     <title>RelinquishNow - Helping hands </title>
   </head>
-  <body data-spy="scroll" data-offset="0" data-target=".team-slider">
+  <body>
     <div class="app-main container">
       {% block header %}
       <div class="row">
@@ -23,15 +24,6 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
-            <div class="dropdown px-3">
-              <i class="fa fa-mobile-alt fa-2x font-orange" id="navbarDropdown" data-toggle="dropdown"></i>
-              <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/comingsoon">
-                <i class="fab fa-android fa-2x font-orange mx-2"></i>
-                <i class="fab fa-apple fa-2x font-orange mx-2"></i>
-                </a>
-              </div>
-            </div>
             <ul class="navbar-nav px-xl-2">
               <li class="mx-1 text-center">
                 <a class="nav-link" href="/" id="home">Home</a>
@@ -39,121 +31,11 @@
               <li class="mx-1 text-center">
                 <a class="nav-link" href="/contact" id="blog">Contact</a>
               </li>
-              <li class="mx-1 text-center">
-                <a class="nav-link" href="/team" id="tvalliance">TVAlliance</a>
-              </li>
-              <li class="mx-1 text-center">
-                <a class="nav-link" href="/careers" id="careers">Careers</a>
-              </li>
               <li class="login mx-1 text-center">
                 <a class="nav-link" href="/login">Login</a>
               </li>
             </ul>
           </div>
-        </nav>
-      </div>
-      <input type="checkbox" id="offcanvas-menu" class="toggle"/>
-      <div class="fluid-container">
-        <div class="menu-container side-nav fixed sn-bg-4">
-          <div>
-            <ul class="custom-scrollbar">
-              <li>
-                <div class="logo-wrapper text-center"></div>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <ul class="collapsible">
-              <li class="active"><a class="collapsible-header text-dark" href="/"><i class="fa fa-home" style="padding-right: 0.9rem"></i> Streaming Now</a></li>
-              <li><a class="collapsible-header text-dark" href="/user/{{user.user_id}}"><i class="fa fa-user"></i> Profile</a></li>
-              <li><a class="collapsible-header text-dark" href="/top_picks"><i class="fa fa-heartbeat"></i> Top Picks</a></li>
-              <li><a class="collapsible-header text-dark" href="/tracks/approval/"><i class="fa fa-certificate"></i> Track Approvals</a></li>
-            </ul>
-          </div>
-          <hr>
-          <div class="bottom px-2">
-            <div class="pre-login-urls">
-              <a class="collapsible-header text-dark pr-2" href="/blog">Blog</a>
-              <a class="collapsible-header text-dark pr-2" href="/team">TVAlliance</a>
-              <a class="collapsible-header text-dark pr-2" href="/careers">Careers</a>
-              <a class="collapsible-header text-dark" href="/contact">Contact</a>
-            </div>
-            <hr>
-            <div class="text-center">
-              <a class="nounderline" href="https://www.facebook.com/tvally.in/" target="_blank" class="px-2">
-                <i class="fab fa-facebook-f circle font-white " ></i>
-              </a>
-              <a class="nounderline" href="https://www.youtube.com/channel/UCTYb9Y3PDwqsqDPrHTc4DtQ" target="_blank" class="px-2">
-                <i class="fab fa-youtube circle"></i>
-              </a>
-              <a class="nounderline" href="https://twitter.com/tvally_in" target="_blank" class="px-2">
-                <i class="fab fa-twitter  circle"></i>
-              </a>
-              <a class="nounderline" href="https://www.instagram.com/tvally/" target="_blank" class="px-2">
-                <i class="fab fa-instagram  circle"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white justify-content-between menu">
-          <div class="content mr-2">
-            <label for="offcanvas-menu" class="full-screen-close"></label>
-            <div >
-              <label for="offcanvas-menu" class="toggle-btn">
-              <i class="fa fa-bars"></i>
-              </label>
-            </div>
-          </div>
-          <a class="navbar-brand" href="/">
-            <img src='/static/images/logo.png' height='50'/>
-          </a>
-          <form class="search-large mx-auto">
-            <div class="input-group px-3">
-              <span class="input-group-addon"><i class="fas fa-search fa-1x"></i></span>
-              <input name="es_text form-control" placeholder="Artist, Song, Playlist, Album" class="form-control form-width"  type="text">
-            </div>
-          </form>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
-            <ul class="navbar-nav px-xl-2">
-              <li class="mx-1 text-center follow_notification_count">
-                <a id="modal-hover" class="nav-link text-dark" data-toggle="popover" data-content="Follow Requests"
-                   href="/user/{{user.user_id}}/follow_requests" data-placement="bottom" data-trigger="hover">
-                  <div class="bg-red {% if not user_followers %}d-none{% endif %} notification-count">
-                    {{ user_followers.count | default:0}}
-                  </div>
-                  <i class="fas fa-user-plus fa-1x"></i>
-                </a>
-              </li>
-              <li class="mx-1 text-center">
-                <a class="nav-link" href="/user/{{user.user_id}}/notifications" data-toggle="popover"
-                   data-placement="bottom" data-trigger="hover" data-content="Notifications">
-                  <i class="fas fa-bell fa-x"></i>
-                </a>
-              </li>
-              <li class="mx-1 text-center">
-                <a class="nav-link" href="/user/{{user.user_id}}/messages" data-toggle="popover"
-                   data-placement="bottom" data-trigger="hover" data-content="Messages">
-                  <i class="fas fa-comment-alt"></i>
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{ user.get_short_name | default:"FirstName" }} </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item " href="/user/{{user.user_id}}/edit">Settings</a>
-                  <a class="dropdown-item " href="/logout">Logout</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <form class="search-small m-auto">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fas fa-search fa-1x"></i></span>
-              <input name="es_text form-control" placeholder="Artist, Song, Playlist, Album" class="form-control form-width"  type="text">
-            </div>
-          </form>
         </nav>
       </div>
       <div class="row nav-padding"></div>
@@ -307,28 +189,6 @@
           </div>
         </div>
       </div>
-      <div class="row bg-blue py-5 newsletter-subscribe">
-        <div class="col-md-12 text-center music-features-2">
-          <h1 class="mt-5">See what's fresh with TVAlly</h1>
-          <p class="text-center">Get the latest TVAlly product news and updates delivered straight to your Inbox.</p>
-        </div>
-        <div class="col-md-6 text-center py-5 m-auto">
-          <form data-toggle="validator" role="form" id="user-subscribe-form">
-            <div class="form-row">
-              <div class="input-group">
-                <input type="email" class="form-control" id="user-subscribe" placeholder="Recipient's email" required  aria-label="Recipient's username" aria-describedby="user-subscribe-btn" data-error="Bruh, that email address is invalid">
-                <div class="btn input-group-append bg-orange px-4 pt-2" id="user-subscribe-btn">
-                  <span class="input-group-texts font-weight-bold">Register</span>
-                </div>
-                <div class="invalid-feedback col-md-12 font-weight-bold">Enter a valid email</div>
-                <div class="valid-feedback col-md-12 font-weight-bold">Email Successfully subscribed!</div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      {% endblock %}
-      {% block footer %}
       <div class="row music-connect bg-grey">
         <div class="col-11 m-auto">
           <div class="row align-center pb-5">
@@ -342,40 +202,37 @@
               <h4 class="font-red">Connect With Us</h4>
               <hr>
               <div class="social-feed">
-                <a class="social-icon si-fb nounderline" href="https://www.facebook.com/tvally.in/" target="_blank">
+                <a class="social-icon si-fb nounderline" href="#" target="_blank">
                 <i class="fab fa-facebook-square fa-3x"></i>
                 </a>
-                <a class="social-icon si-youtube nounderline" href="https://www.youtube.com/channel/UCTYb9Y3PDwqsqDPrHTc4DtQ" target="_blank">
+                <a class="social-icon si-youtube nounderline" href="#" target="_blank">
                 <i class="fab fa-youtube-square fa-3x"></i>
                 </a>
-                <a class="social-icon si-twitter nounderline" href="https://twitter.com/tvally_in" target="_blank">
+                <a class="social-icon si-twitter nounderline" href="#" target="_blank">
                 <i class="fab fa-twitter-square fa-3x"></i>
                 </a>
-                <a class="social-icon si-instagram nounderline" href="https://www.instagram.com/tvally/" target="_blank">
+                <a class="social-icon si-instagram nounderline" href="#" target="_blank">
                 <i class="fab fa-instagram fa-3x"></i>
                 </a>
               </div>
               <hr>
               <div>
-                <i class="fas fa-phone fa-2x font-blue"></i>
-                <h6>+91-9618356164</h6>
-              </div>
-              <hr>
-              <div>
                 <i class="far fa-envelope fa-2x font-red"></i>
-                <h6><a href="mailto:info@tvally.in" class="font-black">info@tvally.in</a></h6>
+                <h6><a href="mailto:info@tvally.in" class="font-black">company@contact.com</a></h6>
               </div>
               <hr>
               <div class="row justify-content-start flex-nowrap pl-3">
                 <div><i class="fab fa-periscope fa-2x"></i></div>
                 <div class="col-md-10 m-0 pl-4">
-                  <p>Quixtart Business Centre, Plot No. 532, 4th Floor, A-Block, 100 Feet Road, Ayyappa Society, Madhapur, Hyderabad, Telangana 500081</p>
+                  <p class="pl-2">Address of Company</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      {% endblock %}
+      {% block footer %}
       <div class='row footer bg-light-dark'>
         <div class="col-11 m-auto">
           <div class="row footer-inner">
@@ -386,83 +243,12 @@
               <a href="/faq">FAQ</a>
             </div>
             <div class="col-3">
-              <a href="/termsandpolicy">Terms & Privacy Policy</a>
+              <a href="#">Terms & Privacy Policy</a>
             </div>
-            <div class="col footer-copyright font-weight-bold">&copy; TuneVerseAlly Entertainment Pvt. Ltd.</div>
+            <div class="col footer-copyright font-weight-bold">&copy; RelinquishNow Pvt Ltd.</div>
           </div>
         </div>
       </div>
-      {% endblock %}
-      {% block player %}
-      {% if user.is_authenticated %}
-      <div class='row bg-light-dark footer-padding'></div>
-      <div class="row">
-        <div id="jp_container_1" class="jp-video jp-video-100 player" role="application" aria-label="media player">
-          <div class="jp-type-playlist">
-            <div id="jquery_jplayer_1" class="jp-jplayer" style="display:none;"></div>
-            <div class="jp-gui">
-              <div class="jp-video-play">
-                <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
-              </div>
-              <div class="row jp-playlist-wrapper">
-                <div class="col-md-12 p-0">
-                  <div class="jp-playlist">
-                    <ul>
-                      <li></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="row media-player">
-                <div class="col-md-3 p-0">
-                  <div class="jp-details px-4 m-0">
-                    <div class="jp-slide mx-2"><i class="fa fa-bars"></i></div>
-                    <div class="jp-poster p-0 mx-2" aria-label="poster"><img src="{{ img.url|default:'/static/images/music.png' }}" alt="Post"></div>
-                    <div class="jp-title p-0" aria-label="title">
-                      <p>&nbsp;</p>
-                    </div>
-                    <div class="jp-artist" aria-label="artist">&nbsp;</div>
-                  </div>
-                </div>
-                <div class="col-md-9 p-0">
-                  <div class="jp-interface">
-                    <div class="jp-progress">
-                      <div class="jp-seek-bar">
-                        <div class="jp-play-bar"></div>
-                      </div>
-                    </div>
-                    <div class="jp-controls-holder row px-3">
-                      <div class="jp-controls col m-0">
-                        <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
-                        <div class="jp-time-divider">&nbsp;/&nbsp;</div>
-                        <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
-                        <div class="jp-previous m-0 text-center"><i class="fas fa-step-backward fa-x"></i></div>
-                        <div class="jp-play"><i class="fas fa-play-circle fa-2x font-red"></i></div>
-                        <div class="jp-pause"><i class="fas fa-pause-circle fa-2x font-red"></i></div>
-                        <div class="jp-next m-0 text-center"><i class="fas fa-step-forward fa-x"></i></div>
-                      </div>
-                      <div class="jp-volume-controls col m-0 p-0">
-                        <div class="jp-mute"><i class="fas fa-volume-off fa-x"></i></div>
-                        <div class="jp-volume-bar">
-                          <div class="jp-volume-bar-value"></div>
-                        </div>
-                        <div class="jp-toggles">
-                          <div class="jp-repeat-all ml-3"><i class="fa fa-retweet fa-x"><span>1</span></i></div>
-                          <div class="jp-shuffle-all mx-1"><i class="fas fa-random fa-x"></i></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="jp-no-solution">
-                <span>Update Required</span>To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {% endif %}
       {% endblock %}
       {% block modals %}
       {% endblock %}

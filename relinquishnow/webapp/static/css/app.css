@@ -155,6 +155,8 @@
   font-size: 1.25rem;
 }
 
+/* General CSS Settings  Ends */
+ 
 /* NavBar CSS Begins */
 
 .app-main.container .navbar {
@@ -989,6 +991,7 @@
 
 #login-form .card,
 .contact-us-main .card {
+  min-height: 500px;
   border: 0;
   border-radius: .25rem;
   -moz-border-radius: .25rem;

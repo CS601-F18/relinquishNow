@@ -1,9 +1,4 @@
 {% extends 'index.html' %}
-{% block css %}
-<link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="/static/css/fontawesome-all.min.css"  rel="stylesheet" type="text/css">
-<link href="/static/css/app.css" rel="stylesheet" type="text/css">
-{% endblock %}
 {% block slider %}
 {% endblock %}
 {% block main %}
@@ -36,23 +31,8 @@
           <div class="text-center">
             <h5>
               <a href="#" class="font-red forgot-password">Forgot Password</a><span> | </span>
-              <a href="#" class="font-blue user-register">Sign Up</a>
+              <a href="/signup" class="font-blue user-register">Sign Up</a>
             </h5>
-          </div>
-        </div>
-        <div class="m-auto text-center" style="width: 90%; height: 20px; border-bottom: 1px solid black;">
-          <span class="bg-white">
-           &nbsp Login with Facebook &nbsp<!--Padding is optional-->
-          </span>
-        </div>
-        <div class="row my-4 text-center">
-          <div class="col-md-11 m-auto">
-            <button class="btn bg-facebook font-weight-bold p-0 pr-2 mx-2 fb-login" type="1"><i class="fab fa-facebook-f mr-2 py-2 btn btn-left bg-blue"></i>Artist 
-              <i class="fa fa-spinner fa-spin ml-2" aria-hidden="true"></i> 
-            </button>
-            <button class="btn bg-facebook font-weight-bold  p-0 pr-2 mx-2 fb-login" type="0"><i class="fab fa-facebook-f mr-2 py-2 btn btn-left bg-blue"></i></i>Patron
-              <i class="fa fa-spinner fa-spin ml-2" aria-hidden="true"></i> 
-            </button>
           </div>
         </div>
       </div>

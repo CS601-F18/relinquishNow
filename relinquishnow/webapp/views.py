@@ -6,6 +6,7 @@ class Index(View):
     def get(self, request):
         response = render(request, 'index.html', {})
         return response
+ 
     
 class Login(View):
     def get(self, request):
@@ -14,10 +15,21 @@ class Login(View):
         
     def post(self):
         pass
+    
 
-class Logout(View):
+class SignUp(View):
+    def get(self, request):
+        response = render(request, 'signup.html', {})
+        return response
+        
     def post(self):
         pass
+
+
+class Logout(View):
+    def get(self):
+        pass
+    
 
 class ContactUs(View):
     def get(self, request):
