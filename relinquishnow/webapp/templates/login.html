@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+{% block css %}
+<link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/static/css/fontawesome-all.min.css"  rel="stylesheet" type="text/css">
+<link href="/static/css/app.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block slider %}
+{% endblock %}
+{% block main %}
+<div class="row">
+  <div class="col-md-12 col-sm-12 text-center p-3">
+    <form id="login-form">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group pt-1">
+            <div class="md-form">
+              <i class="fa fa-envelope prefix"></i>
+              <label for="user_login_email">Email</label>
+              <input id="user_login_email" name="user_login_email" data-validation="email" data-validation-error-msg="Enter a valid e-mail" type="email" required="required">
+            </div>
+          </div>
+          <div class="form-group pt-1">
+            <div class="md-form">
+              <i class="fas fa-lock prefix"></i>
+              <label for="user_login_password">Password</label>
+              <input id="user_login_password" name="user_login_password" data-validation="length" data-validation-error-msg="Please enter a valid password" minlength="8" type="password" required="required">
+            </div>
+          </div>
+          <div class="text-center m-4">
+            <button class="btn bg-indigo px-5 py-2" id="login-form-submit" value="Validate">Login
+            <i class="fa fa-spinner fa-spin ml-2" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="valid-feedback col-md-12 font-weight-bold text-center">User Authenticated Succesfully!</div>
+          <div class="invalid-feedback col-md-12 font-weight-bold text-center">Invalid Username/Password!</div>
+          <div class="text-center">
+            <h5>
+              <a href="#" class="font-red forgot-password">Forgot Password</a><span> | </span>
+              <a href="#" class="font-blue user-register">Sign Up</a>
+            </h5>
+          </div>
+        </div>
+        <div class="m-auto text-center" style="width: 90%; height: 20px; border-bottom: 1px solid black;">
+          <span class="bg-white">
+           &nbsp Login with Facebook &nbsp<!--Padding is optional-->
+          </span>
+        </div>
+        <div class="row my-4 text-center">
+          <div class="col-md-11 m-auto">
+            <button class="btn bg-facebook font-weight-bold p-0 pr-2 mx-2 fb-login" type="1"><i class="fab fa-facebook-f mr-2 py-2 btn btn-left bg-blue"></i>Artist 
+              <i class="fa fa-spinner fa-spin ml-2" aria-hidden="true"></i> 
+            </button>
+            <button class="btn bg-facebook font-weight-bold  p-0 pr-2 mx-2 fb-login" type="0"><i class="fab fa-facebook-f mr-2 py-2 btn btn-left bg-blue"></i></i>Patron
+              <i class="fa fa-spinner fa-spin ml-2" aria-hidden="true"></i> 
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block player %}
+{% endblock %}

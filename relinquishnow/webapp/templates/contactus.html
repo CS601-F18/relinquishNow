@@ -1,0 +1,98 @@
+{% extends 'index.html' %}
+{% block slider %}
+<div class="row team-slider contact-us-intro">
+	<div class="jumbotron main-jumbotron">
+    <div class="container">
+      <div class="content">
+        <h1>Contact Us</h1>
+        <p class="text-center">We’re here to provide you an effective and customized solution for your music needs</p>
+      </div>
+      <a class="nav-link" href="#contact-form">
+      	<i class="fas fa-chevron-circle-down fa-3x"></i>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block main %}
+<div class="row main-intro pt-4">
+	<div class="col-md-4 text-center my-4">
+	  <i class="far fa-comments fa-5x"></i>
+	  <h4 class="font-weight-bold mt-3">Feedback</h4>
+	</div>
+	<div class="col-md-4 text-center my-4">
+		<i class="fas fa-laptop fa-5x"></i>
+	  <h4 class="font-weight-bold mt-3">Request a Demo</h4>
+	</div>
+	<div class="col-md-4 text-center my-4">
+	  <i class="fab fa-slideshare fa-5x"></i>
+	  <h4 class="font-weight-bold mt-3">Customer Support</h4>
+	 </div>
+	 <div class="col-md-11 m-auto underline"></div>
+</div>
+<div class="row contact-us-main">
+    <div class="col-md-6 pb-4">
+	    <p class="text-justify">TVAlly is a music platform that provides Discovery, Streaming and Social Connectivity using Machine Learning based recommendation engine. Find out how to use TVAlly for your artistic endeavours or patronage.</p>
+	    <h5><b>Ask a TVAlly expert how we can help:</b></h5>
+	    <ul>
+	    	<li><i class="fas fa-check"></i><b>See our software in action</b>: Request a customized product demonstration, discover our workflows and features in detail</li>
+	    	<li><i class="fas fa-check"></i><b>Explore options suitable to your needs</b>: If you are an artist, get in touch to know about our pricing plans.</li>
+	    	<li><i class="fas fa-check"></i><b>Explore life at TVAlly</b>: Learn about how we are trying to transform the music industry, know more about the opportunities and work life here.</li>
+	    </ul>
+    </div>
+    <div class="col-md-6 pb-4">
+      <!--Form-->
+      <form id="contact-form">
+	      <div class="card">
+	        <div class="card-body">
+	          <div class="form-header">
+		      		<h3><i class="fa fa-envelope"></i> Get in Touch</h3>
+		      	</div>
+    				<div class="form-group">
+    					<div class="md-form">
+    						<i class="fa fa-user prefix"></i>
+                <label for="user_name">Your name</label>
+    						<input id="user_name" name="user_name" minlength="4" maxlength="64" required="required" type="text">
+    					</div>
+    				</div>
+    				<div class="form-group">
+              <div class="md-form">
+                <i class="fa fa-envelope prefix"></i>
+                <label for="user_email">Your email</label>
+                <input id="user_email" name="user_email" data-validation="email" data-validation-error-msg="Enter a valid e-mail" type="email" required="required">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="md-form">
+                <i class="fa fa-mobile-alt prefix"></i>
+                <label for="user_phone">Mobile No</label>
+                <input id="user_phone" name="user_phone" data-validation="length" required="required" type="number" class="no-spin" minlength="10" maxlength="12" data-validation-error-msg="Your number must be at least 10 characters. Numbers Only.">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="md-form">
+                <i class="fas fa-pencil-alt prefix"></i>
+                <label for="user_subject">Your Subject</label>
+                <input id="user_subject" name="user_subject" data-validation="length" minlength="10" maxlength="128" required="required" type="text" />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="md-form">
+                <i class="far fa-newspaper prefix"></i>
+                <label for="user_message">Your message</label>
+                <textarea id="user_message" name="user_message" data-validation="length" minlength="10" maxlength="1200" required="required" type="text" /></textarea>
+              </div>
+            </div>
+            <div class="text-center mt-2">
+  		      <button class="btn bg-indigo px-5 py-2" id="contact-form-submit"  value="Validate">Send
+                <i class="fa fa-spinner fa-spin ml-2" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="valid-feedback col-md-12 font-weight-bold text-center">Form Submitted Succesfully!</div>
+            <div class="invalid-feedback col-md-12 font-weight-bold text-center">Error while submitting form!</div>
+          </div>
+        </div>
+      </form>
+    </div>
+</div>
+{% endblock %}
