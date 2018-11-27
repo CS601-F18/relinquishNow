@@ -1,38 +1,5 @@
+{% extends 'index.html' %}
 {% block header %}
-{% if not user.is_authentcated %}
-<div class="row">
-  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white justify-content-between">
-    <a class="navbar-brand" href="/">
-      <img src='/static/images/logo.png' height='50'/>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
-      <div class="dropdown px-3">
-        <i class="fa fa-mobile-alt fa-2x font-orange" id="navbarDropdown" data-toggle="dropdown"></i>
-        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/comingsoon">
-          <i class="fab fa-android fa-2x font-orange mx-2"></i>
-          <i class="fab fa-apple fa-2x font-orange mx-2"></i>
-          </a>
-        </div>
-      </div>
-      <ul class="navbar-nav px-xl-2">
-        <li class="mx-1 text-center">
-          <a class="nav-link" href="/" id="home">Home</a>
-        </li>
-        <li class="mx-1 text-center">
-          <a class="nav-link" href="/contact" id="blog">Contact</a>
-        </li>
-        <li class="login mx-1 text-center">
-          <a class="nav-link" href="/login">Login</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</div>
-{% else %}
 <input type="checkbox" id="offcanvas-menu" class="toggle"/>
 <div class="fluid-container">
   <div class="menu-container side-nav fixed sn-bg-4">
@@ -47,30 +14,28 @@
       <ul class="collapsible">
         <li class="active"><a class="collapsible-header text-dark" href="/"><i class="fa fa-home" style="padding-right: 0.9rem"></i> Streaming Now</a></li>
         <li><a class="collapsible-header text-dark" href="/user/{{user.user_id}}"><i class="fa fa-user"></i> Profile</a></li>
-        <li><a class="collapsible-header text-dark" href="/top_picks"><i class="fa fa-heartbeat"></i> Top Picks</a></li>
-        <li><a class="collapsible-header text-dark" href="/tracks/approval/"><i class="fa fa-certificate"></i> Track Approvals</a></li>
+        <li><a class="collapsible-header text-dark" href="/helpcentres"><i class="fa fa-heartbeat"></i> Help Centres</a></li>
+        <li><a class="collapsible-header text-dark" href="/admin"><i class="fa fa-certificate"></i> Admin</a></li>
       </ul>
     </div>
     <hr>
     <div class="bottom px-2">
-      <div class="pre-login-urls">
-        <a class="collapsible-header text-dark pr-2" href="/blog">Blog</a>
-        <a class="collapsible-header text-dark pr-2" href="/team">TVAlliance</a>
-        <a class="collapsible-header text-dark pr-2" href="/careers">Careers</a>
+      <div class="pre-login-urls text-center">
+        <a class="collapsible-header text-dark pr-2" href="/faq">FAQ</a>
         <a class="collapsible-header text-dark" href="/contact">Contact</a>
       </div>
       <hr>
       <div class="text-center">
-        <a class="nounderline" href="https://www.facebook.com/tvally.in/" target="_blank" class="px-2">
+        <a class="nounderline" href="#" target="_blank" class="px-2">
           <i class="fab fa-facebook-f circle font-white " ></i>
         </a>
-        <a class="nounderline" href="https://www.youtube.com/channel/UCTYb9Y3PDwqsqDPrHTc4DtQ" target="_blank" class="px-2">
+        <a class="nounderline" href="#" target="_blank" class="px-2">
           <i class="fab fa-youtube circle"></i>
         </a>
-        <a class="nounderline" href="https://twitter.com/tvally_in" target="_blank" class="px-2">
+        <a class="nounderline" href="#" target="_blank" class="px-2">
           <i class="fab fa-twitter  circle"></i>
         </a>
-        <a class="nounderline" href="https://www.instagram.com/tvally/" target="_blank" class="px-2">
+        <a class="nounderline" href="#" target="_blank" class="px-2">
           <i class="fab fa-instagram  circle"></i>
         </a>
       </div>
@@ -91,7 +56,7 @@
     <form class="search-large mx-auto">
       <div class="input-group px-3">
         <span class="input-group-addon"><i class="fas fa-search fa-1x"></i></span>
-        <input name="es_text form-control" placeholder="Artist, Song, Playlist, Album" class="form-control form-width"  type="text">
+        <input name="es_text form-control" placeholder="Search for Items, Help Centres, Users" class="form-control form-width"  type="text">
       </div>
     </form>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,8 +65,8 @@
     <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
       <ul class="navbar-nav px-xl-2">
         <li class="mx-1 text-center follow_notification_count">
-          <a id="modal-hover" class="nav-link text-dark" data-toggle="popover" data-content="Follow Requests"
-             href="/user/{{user.user_id}}/follow_requests" data-placement="bottom" data-trigger="hover">
+          <a id="modal-hover" class="nav-link" data-toggle="popover" data-content="Follow Requests"
+             href="#" data-placement="bottom" data-trigger="hover">
             <div class="bg-red {% if not user_followers %}d-none{% endif %} notification-count">
               {{ user_followers.count | default:0}}
             </div>
@@ -109,13 +74,13 @@
           </a>
         </li>
         <li class="mx-1 text-center">
-          <a class="nav-link" href="/user/{{user.user_id}}/notifications" data-toggle="popover"
+          <a class="nav-link" href="#" data-toggle="popover"
              data-placement="bottom" data-trigger="hover" data-content="Notifications">
             <i class="fas fa-bell fa-x"></i>
           </a>
         </li>
         <li class="mx-1 text-center">
-          <a class="nav-link" href="/user/{{user.user_id}}/messages" data-toggle="popover"
+          <a class="nav-link" href="#" data-toggle="popover"
              data-placement="bottom" data-trigger="hover" data-content="Messages">
             <i class="fas fa-comment-alt"></i>
           </a>
@@ -137,5 +102,9 @@
     </form>
   </nav>
 </div>
-{% endif %}
+<div class="row nav-padding"></div>
+{% endblock %}
+{% block slider %}
+{% endblock %}
+{% block main %}
 {% endblock %}

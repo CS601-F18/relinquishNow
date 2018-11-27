@@ -1,11 +1,12 @@
 import json
-import uuid
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.middleware import csrf
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from django.views import View
 
 from api.models import User
@@ -13,8 +14,12 @@ from api.models import User
 
 class Index(View):
     def get(self, request):
-        response = render(request, 'index.html', {})
-        response.set_cookie(key='csrftoken', value=csrf.get_token(request))
+        if request.user.is_authenticated:
+            response = render(request, 'home.html', {})
+        else:
+            response = render(request, 'index.html', {})
+            response.set_cookie(key='csrftoken', value=csrf.get_token(request))
+        
         return response
  
     
@@ -33,13 +38,9 @@ class Login(View):
         password = request.POST['user_login_password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            if user.account_verification_status == 1:
-                login(request, user)
-                response_data["status"] = "Success"
-                response_data["http_status_code"] = 200
-            else:
-                response_data["error_reason"] = "Account need to be verified"
-                response_data["http_status_code"] = 403
+            login(request, user)
+            response_data["status"] = "Success"
+            response_data["http_status_code"] = 200
                 
             if user.is_deleted:
                 response_data["error_reason"] = "Account has been deleted"
@@ -50,6 +51,14 @@ class Login(View):
     
         return HttpResponse(json.dumps(response_data), status=response_data["http_status_code"])
     
+
+class Home(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        response = render(request, 'home.html', {})
+        response.set_cookie(key='csrftoken', value=csrf.get_token(request))
+        return response
+        
 
 class SignUp(View):
     def get(self, request):
@@ -101,9 +110,26 @@ class SignUp(View):
         return HttpResponse(json.dumps(response_data), status=response_data["http_status_code"])
 
 
+class UserProfile(View):
+    @method_decorator(login_required)
+    def get(self, request, user_id):
+        response = render(request, 'profile.html', {})
+        response.set_cookie(key='csrftoken', value=csrf.get_token(request))
+        return response
+
+    
+class HelpCenterProfile(View):
+    @method_decorator(login_required)
+    def get(self, request, centre_id):
+        response = render(request, 'helpcenter.html', {})
+        response.set_cookie(key='csrftoken', value=csrf.get_token(request))
+        return response
+        
+
 class Logout(View):
-    def get(self):
-        pass
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect("/")
     
 
 class ContactUs(View):

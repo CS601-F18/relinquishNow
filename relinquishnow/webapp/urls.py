@@ -25,5 +25,8 @@ urlpatterns = [
     path('signup/', views.SignUp.as_view()),
     path('login/', views.Login.as_view()),
     path('logout/', views.Logout.as_view()),
+    path('home/', views.Home.as_view()),
+    path('user/<user_id>/', views.UserProfile.as_view()),
+    path('helpcenter/<center_id>/', views.Home.as_view()),
     path('contact/', views.ContactUs.as_view())
 ]

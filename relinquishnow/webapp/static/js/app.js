@@ -18,7 +18,7 @@ $(document).ready(function() {
         "Providing necessary support to the homeless and less previleged",
         "Connect with assistance centres and facilities near your locality",
         "Raise support to your cause or volunteer providing support",
-        "Donating your used items directly or through assitance centres",
+        "Donate your used items directly or through assitance centres",
     );
     var current = 0;
 
@@ -201,7 +201,7 @@ $(document).ready(function() {
                     $("#login-form-submit").addClass("disabled");
                 },
                 success: function() {
-                    window.location.href = "/";
+                    window.location.href = "/home";
                 },
                 error: function(xhr) {
                     json_data = JSON.parse(xhr.responseText)
