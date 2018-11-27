@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
 
-from api.models import User
+from api.models import User, ContactRequest
 
 
 class Index(View):
@@ -72,40 +72,36 @@ class SignUp(View):
             "http_status_code": 500
         }
 
-        if request.method == 'POST':
-            user_first_name = request.POST.get("user_first_name")
-            user_last_name = request.POST.get("user_last_name")
-            user_email = request.POST.get("user_email")
-            user_password = request.POST.get("user_password")
-            user_phone = request.POST.get("user_phone")
-    
-            if not User.objects.filter(user_email=user_email).exists():
-                try:
-                    user_register_obj = User(
-                        user_first_name=user_first_name,
-                        user_last_name=user_last_name,
-                        user_email=user_email,
-                        user_phone=user_phone,
-                        password=user_password)
-    
-                    user_register_obj.full_clean()
-                    user_register_obj.set_password(user_password)
-                    user_register_obj.save()
-    
-                    response_data["status"] = "Success"
-                    response_data["http_status_code"] = 200
-    
-                except ValidationError:
-                    response_data["error_reason"] = "Invalid Data Types"
-                    response_data["http_status_code"] = 412
-                except Exception as e:
-                    print(e)
-                    response_data["error_reason"] = "Error while saving user sign up information"
-            else:
-                response_data["error_reason"] = "Email already registered"
+        user_first_name = request.POST.get("user_first_name")
+        user_last_name = request.POST.get("user_last_name")
+        user_email = request.POST.get("user_email")
+        user_password = request.POST.get("user_password")
+        user_phone = request.POST.get("user_phone")
+
+        if not User.objects.filter(user_email=user_email).exists():
+            try:
+                user_register_obj = User(
+                    user_first_name=user_first_name,
+                    user_last_name=user_last_name,
+                    user_email=user_email,
+                    user_phone=user_phone,
+                    password=user_password)
+
+                user_register_obj.full_clean()
+                user_register_obj.set_password(user_password)
+                user_register_obj.save()
+
+                response_data["status"] = "Success"
+                response_data["http_status_code"] = 200
+
+            except ValidationError:
+                response_data["error_reason"] = "Invalid Data Types"
+                response_data["http_status_code"] = 412
+            except Exception as e:
+                print(e)
+                response_data["error_reason"] = "Error while saving user sign up information"
         else:
-            response_data["error_reason"] = "Invalid Request"
-            response_data["http_status_code"] = 405
+            response_data["error_reason"] = "Email already registered"
     
         return HttpResponse(json.dumps(response_data), status=response_data["http_status_code"])
 
@@ -137,4 +133,37 @@ class ContactUs(View):
         response = render(request, 'contactus.html', {})
         response.set_cookie(key='csrftoken', value=csrf.get_token(request))
         return response
+    
+    def post(self, request):
+        response_data = {
+            "status": "Failure",
+            "http_status_code": 500
+        }
+        
+        user_name = request.POST.get("user_name")
+        user_email = request.POST.get("user_email")
+        user_phone = request.POST.get("user_phone")
+        user_subject = request.POST.get("user_subject")
+        user_message = request.POST.get("user_message")
+        try:
+            contact_obj = ContactRequest(user_name=user_name,
+                                    user_email=user_email,
+                                    user_phone=user_phone,
+                                    user_subject=user_subject,
+                                    user_message=user_message
+                                    )
+            contact_obj.full_clean()
+            contact_obj.save()
+
+            response_data["status"] = "Success"
+            response_data["http_status_code"] = 200
+            
+        except ValidationError:
+            response_data["error_reason"] = "Invalid Data Types"
+            response_data["http_status_code"] = 412
+        except:
+            response_data["error_reason"] = "Error while sending email"
+            response_data["http_status_code"] = 500
+
+        return HttpResponse(json.dumps(response_data), status=response_data["http_status_code"])
 

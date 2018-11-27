@@ -6,6 +6,7 @@ from .models import *
 admin.site.register(User)
 admin.site.register(UserFollower)
 admin.site.register(UserImage)
+admin.site.register(ContactRequest)
 admin.site.register(PostType)
 admin.site.register(Post)
 admin.site.register(PostReceipient)

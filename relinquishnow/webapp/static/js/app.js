@@ -104,7 +104,7 @@ $(document).ready(function() {
             }
             $.ajax({
                 type: "POST",
-                url: "/contact/submit/",
+                url: "/contact/",
                 data: formData,
                 beforeSend: function() {
                     $(".fa-spinner", $("#contact-form-submit")).css('display', 'inline-block');

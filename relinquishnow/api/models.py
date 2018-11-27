@@ -1,3 +1,6 @@
+import datetime
+import os
+
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.validators import RegexValidator
 from django.db import models
@@ -110,6 +113,24 @@ class UserImage(models.Model):
 
     class Meta:
         db_table = 'user_images'
+
+class ContactRequest(models.Model):    
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
+                                 message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+
+    user_report_id = models.AutoField(primary_key=True)
+    user_name = models.CharField(max_length=64)
+    user_email = models.EmailField()
+    user_phone = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+    user_subject = models.TextField(max_length=128)
+    user_message = models.TextField(max_length=1200)
+    created_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.user_name + '-' + str(self.created_at)
+
+    class Meta:
+        db_table = 'contact_us'
 
 
 class PostType(models.Model):
