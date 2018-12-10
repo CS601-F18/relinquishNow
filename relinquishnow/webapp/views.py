@@ -23,36 +23,7 @@ class Index(View):
             response.set_cookie(key='csrftoken', value=csrf.get_token(request))
         
         return response
- 
-    
-class Login(View):
-    def get(self, request):
-        response = render(request, 'login.html', {})
-        response.set_cookie(key='csrftoken', value=csrf.get_token(request))
-        return response
-        
-    def post(self, request):
-        response_data = {
-            "status": "Failure",
-            "http_status_code": 401
-        }
-        username = request.POST['user_login_email']
-        password = request.POST['user_login_password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            response_data["status"] = "Success"
-            response_data["http_status_code"] = 200
-                
-            if user.is_deleted:
-                response_data["error_reason"] = "Account has been deleted"
-                response_data["http_status_code"] = 403
-    
-        else:
-            response_data["error_reason"] = "Invalid Username/Password"
-    
-        return HttpResponse(json.dumps(response_data), status=response_data["http_status_code"])
-    
+
 
 class SignUp(View):
     def get(self, request):
@@ -97,8 +68,48 @@ class SignUp(View):
         else:
             response_data["error_reason"] = "Email already registered"
     
+        return HttpResponse(json.dumps(response_data), status=response_data["http_status_code"]) 
+
+
+class Login(View):
+    # This renders login page based on user session status
+    # If user is already logged redirect to index view else render login page
+    def get(self, request):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect("/")
+        
+        response = render(request, 'login.html', {})
+        response.set_cookie(key='csrftoken', value=csrf.get_token(request))
+        return response
+        
+    def post(self, request):
+        response_data = {
+            "status": "Failure",
+            "http_status_code": 401
+        }
+        username = request.POST['user_login_email']
+        password = request.POST['user_login_password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            response_data["status"] = "Success"
+            response_data["http_status_code"] = 200
+                
+            if user.is_deleted:
+                response_data["error_reason"] = "Account has been deleted"
+                response_data["http_status_code"] = 403
+    
+        else:
+            response_data["error_reason"] = "Invalid Username/Password"
+    
         return HttpResponse(json.dumps(response_data), status=response_data["http_status_code"])
 
+    
+# This deleted the current user session and redirects back to home page
+class Logout(View):
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect("/")
 
 class Items(View):
     @method_decorator(login_required)
@@ -126,12 +137,6 @@ class HelpCenterProfile(View):
         response = render(request, 'helpcenter.html', context)
         return response
         
-
-class Logout(View):
-    def get(self, request):
-        logout(request)
-        return HttpResponseRedirect("/")
-    
 
 class ContactUs(View):
     def get(self, request):

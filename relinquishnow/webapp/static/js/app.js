@@ -206,7 +206,7 @@ $(document).ready(function() {
                     $("#login-form-submit").addClass("disabled");
                 },
                 success: function() {
-                    window.location.href = "/home";
+                    window.location.href = "/";
                 },
                 error: function(xhr) {
                     json_data = JSON.parse(xhr.responseText)
@@ -223,4 +223,36 @@ $(document).ready(function() {
             });
         }
     });
+    
+    // This will mimic the image change functionality
+    $(".profile-img").click(function(e) {
+        e.preventDefault();
+        $("#imageUpload").click();
+    });
+    $('.file-field input[type="file"]').change(function(e) {
+        var fileName = e.target.files[0].name;
+        $(this).closest(".file-field").find(".file-path").val(fileName);
+    });
+    $("#imageUpload").change(function() {
+        var profileImage = $("#imageUpload")[0].files[0],
+            user_id = $(this).attr("logged_in_user");
+        if (profileImage) {
+            var formData = new FormData();
+            formData.append("user_id", user_id);
+            formData.append("profile_image", profileImage);
+            formData.append("image_type", 0);
+            formData.append("csrfmiddlewaretoken", getCookie("csrftoken"));
+            $.ajax({
+                url: "/user/" + user_id + "/image/submit/",
+                data: formData,
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    $(".profile-img div").css("background-image", 'url(' + window.URL.createObjectURL($("#imageUpload")[0].files[0]) + ')');
+                }
+            });
+        }
+    });
+    
 });

@@ -96,4 +96,42 @@ class HelpCenterDetail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+class ItemsList(APIView):
+    def get(self, request):
+        helpCenters = HelpCenter.objects.all()
+        serializer = HelpCenterSerializer(helpCenters, many=True)
+        return Response(serializer.data)
+    
+    
+    def post(self, request):
+        helpCenter = json.loads(request.query_params.get('data', {}))
+        serializer = HelpCenterSerializer(data=helpCenter)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)   
+
+
+class ItemDetail(APIView):
+    def get_object(self, hcId):
+        try:
+            return HelpCenter.objects.get(hc_id=hcId)
+        except HelpCenter.DoesNotExist:
+            raise Http404
+
+    def get(self, request, hcId):
+        helpCenter = self.get_object(hcId)
+        serializer = HelpCenterSerializer(helpCenter)
+        return Response(serializer.data)
+
+    def put(self, request, hcId):
+        helpCenter = self.get_object(hcId)
+        serializer = HelpCenterSerializer(helpCenter, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
