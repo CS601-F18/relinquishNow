@@ -1,27 +1,18 @@
-{% extends 'streaming_now.html' %}
+{% extends 'home.html' %}
 {% block slider%}
 {% endblock %}
 {% block main%}
 <div class="row py-2 mx-0 px-0">
-  {% if school_details.is_deleted == 1 %}
-  <div class="col-sm-12 col-md-11 m-auto">
-    <div class="alert alert-danger text-center">
-      The school page you are searching for isn't available. Please check later.
-      <br>
-      <br> If the issue still persists, kindly check with the school.
-    </div>
-  </div>
-  {% else %}
   <div class="col-sm-12 col-md-11 m-auto">
     <div class="row profile-intro justify-content-start m-0">
       <div class="profile-img-container bg-grey mb-3 mr-3">
         <div class="profile-img justify-content-center align-items-center z-depth-1 bg-white p-3">
-          {% if school_details.school_logo %}
-            {% with school_details.school_logo as img %}
+          {% if hc_details.hc_logo %}
+            {% with hc_details.hc_logo as img %}
             <div style="background-image: url('{{ img.url }}')" class="img-fluid m-auto d-block" alt=""></div>
             {% endwith %}
           {% else %}
-          <div style="background-image: url('/static/images/employee-default.png')"
+          <div style="background-image: url('/static/images/user-profile-default.png')"
                class="img-fluid m-auto d-block" alt="">
           </div>
           {% endif %}
@@ -30,7 +21,7 @@
       <div class="w-100 d-none"></div>
       <div class="d-inline col-xs-12 col user-details-container mt-3 mb-3 p-0">
         <div class="row align-items-center justify-content-between m-0">
-          <h3 class="font-weight-bold"><strong>{{ school_details.school_name }}</strong></h3>
+          <h3 class="font-weight-bold"><strong>{{ hc_details.hc_name }}</strong></h3>
         </div>
       </div>
     </div>
@@ -51,70 +42,52 @@
             <div class="table-responsive">
               <table class="table" data-wow-delay=".4s">
                 <tbody>
-                {% if school_details.school_desc %}
+                {% if hc_details.hc_desc %}
                 <tr>
                   <th scope="row"><i class="fas fa-align-justify">  Description</i></th>
-                  <td align="justify" class="user-info-class">{{school_details.school_desc}}</td>
+                  <td align="justify" class="user-info-class">{{hc_details.hc_desc}}</td>
                 </tr>
                 {% endif%}
-                {% if school_details.school_starting_year.year %}
-                  {% if school_age == 0 %}
-                  <tr>
-                    <th scope="row"><i class="fas fa-hourglass-half">  Established Since</i></th>
-                   <td>Opened this year</td>
-                  </tr>
-                  {% elif school_age == 1 %}
-                  <tr>
-                    <th scope="row"><i class="fas fa-hourglass-half">  Established Since</i></th>
-                    <td>{{school_age}} year</td>
-                  </tr>
-                  {% else %}
-                  <tr>
-                    <th scope="row"><i class="fas fa-hourglass-half">  Established Since</i></th>
-                    <td>{{school_age}} years</td>
-                  </tr>
-                  {% endif %}
-                {% endif %}
-                {% if school_details.school_email %}
+                {% if hc_details.hc_email %}
                 <tr>
                   <th scope="row"><i class="fas fa-inbox">  E-mail</i></th>
-                  <td>{{school_details.school_email}}</td>
+                  <td>{{hc_details.hc_email}}</td>
                 </tr>
                 {% endif %}
-                {% if school_details.school_phone %}
+                {% if hc_details.hc_phone %}
                 <tr>
                   <th scope="row"><i class="fas fa-phone">  Contact Number(s)</i></th>
-                  <td>{{school_details.school_phone}}</td>
+                  <td>{{hc_details.hc_phone}}</td>
                 </tr>
                 {% endif %}
-                {% if school_details.school_address %}
+                {% if hc_details.hc_address %}
                 <tr>
                   <th scope="row"><i class="fas fa-map-marker">  Address</i></th>
-                  <td>{{school_details.school_address}}</td>
+                  <td>{{hc_details.school_address}}</td>
                 </tr>
                 {% endif %}
-                {% if school_details.school_city %}
+                {% if hc_details.hc_city %}
                 <tr>
                   <th scope="row"><i class="fas fa-location-arrow">  City</i></th>
-                  <td>{{school_details.school_city}}</td>
+                  <td>{{hc_details.hc_city}}</td>
                 </tr>
                 {% endif %}
-                {% if school_details.school_state %}
+                {% if hc_details.hc_state %}
                 <tr>
                   <th scope="row"><i class="fas fa-map-signs">  State</i></th>
-                  <td>{{school_details.school_state}}</td>
+                  <td>{{hc_details.hc_state}}</td>
                 </tr>
                 {% endif %}
-                {% if school_details.school_country %}
+                {% if hc_details.school_country %}
                 <tr>
                   <th scope="row"><i class="fas fa-map">  Country</i></th>
-                  <td>{{school_details.school_country}}</td>
+                  <td>{{hc_details.hc_country}}</td>
                 </tr>
                 {% endif %}
-                {% if school_details.school_website %}
+                {% if hc_details.hc_website %}
                 <tr>
                   <th scope="row"><i class="fas fa-globe">  Website</i></th>
-                  <td><a href="{{school_details.school_website}}" target="_blank">  {{school_details.school_website}}</td>
+                  <td><a href="{{school_details.school_website}}" target="_blank">  {{hc_details.hc_website}}</td>
                 </tr>
                 {% endif %}
                 </tbody>
@@ -129,17 +102,17 @@
         <div class="card px-3">
           <div class="row">
             <div class="col-md-12 text-center pt-3 pb-0">
-              <h4 class="bg-light">School Alumni</h4>
+              <h4 class="bg-light">Help Center Members</h4>
             </div>
           </div>
           <div class="row justify-content-between px-3 py-0">
-            {% for alumni in school_alumni %}
+            {% for member in help_center_members %}
               <div class="col-md-6 mb-2">
                 <div class="row card flex-row mr-1">
                   <div class="col-4 mx-0 px-0">
                     <div class="follow-profile">
-                      {% if alumni.profile_img.image %}
-                        {% with alumni.profile_img.image as img %}
+                      {% if member.profile_img.image %}
+                        {% with member.profile_img.image as img %}
                           <img src="{{ img.url }}" class="img-fluid z-depth-1 rounded-0">
                         {% endwith %}
                       {% else %}
@@ -149,11 +122,11 @@
                   </div>
                   <div class="col-md-8 pt-3">
                     <h6 class="mt-0 font-small">
-                      <a href="/user/{{alumni.alumnus_user.user_id}}" class="font-blue font-weight-bold">{{alumni.alumnus_user.user_first_name}} {{alumni.alumnus_user.user_last_name}}</a>
+                      <a href="/user/{{alumni.alumnus_user.user_id}}" class="font-blue font-weight-bold">{{member.user_first_name}} {{member.user_last_name}}</a>
                     </h6>
                     <div class="post-data">
                       <p class="font-small grey-text mb-0">Joined
-                        <i class="fa fa-clock-o"></i> {{alumni.created_time | date}}
+                        <i class="fa fa-clock-o"></i> {{member.created_time | date}}
                       </p>
                     </div>
                   </div>
@@ -165,6 +138,5 @@
       </div>
     </div>
   </div>
-  {% endif %}
 </div>
 {% endblock %}

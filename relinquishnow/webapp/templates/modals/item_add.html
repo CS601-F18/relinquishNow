@@ -1,0 +1,62 @@
+<div class="modal fade" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content m-auto">
+      <div class="modal-body album-form-wrapper">
+        <form id="item-form" enctype="multipart/form-data">
+          <div class="card">
+            <div class="row">
+              <div class="col-md-12 text-center p-3">
+                <img src='/static/images/logo.png' height='75'/>
+              </div>
+              <div class="col-md-11 underline m-auto"></div>
+            </div>
+            <div class="card-body">
+               <div class="form-group d-none">
+                <div class="md-form">
+                  <i class="fas fa-dot-circle prefix"></i>
+                  <label for="album_id">Item Id</label>
+                  <input type="text" id="alb_id" name="alb_id" required="required" data-validation="length" minlength="4" data-validation-error-msg="You did not enter a valid name">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="md-form">
+                  <i class="fas fa-dot-circle prefix"></i>
+                  <label for="alb_name">Item Name</label>
+                  <input type="text" id="alb_name" name="alb_name" required="required" data-validation="length" minlength="4" class="no-border" data-validation-error-msg="You did not enter a valid name" value="{% if not album_details.alb_name %}{% else %}{{album_details.alb_name}}{% endif %}" {% if album_details.alb_public_status %} disabled {% endif %}>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="md-form">
+                  <i class="far fa-list-alt prefix"></i>
+                  <label for="alb_desc">Item Description</label>
+                  <textarea id="alb_desc" name="alb_desc" data-validation="length" maxlength="200" required="required">{% if not album_details.alb_desc %}{% else %}{{album_details.alb_desc}}{% endif %}</textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="md-form">
+                  <div class="file-field">
+                    <div class="btn btn-sm bg-blue float-left waves-effect">
+                      <span>Item Image</span>
+                      <input id="album_image" type="file" accept="image/*">
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input id="album_image_name" type="text" class="file-path validate" type="text" placeholder="Upload Album Image" data-validation-error-msg="You did not enter a valid image">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="valid-feedback col-md-12 font-weight-bold text-center">Item added to donated list Succesfully!</div>
+              <div class="invalid-feedback col-md-12 font-weight-bold text-center">Error while adding Item to donating List!</div>
+              <div class="text-center m-4">
+                <button class="btn bg-red py-2" id="item-form-cancel" value="Validate" data-dismiss="modal">Cancel</button>
+                <button class="btn py-2" id="item-form-submit"  value="Validate">Submit
+                    <i class="fa fa-spinner fa-spin ml-2" aria-hidden="true"></i>
+                  </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -86,6 +86,11 @@ $(document).ready(function() {
         return null;
     }
     
+    $(".item-add").click(function(){
+    	$("#itemModal").modal('show');
+    	$("#item-form")[0].reset();
+    })
+    
     // This functions are used to submit contact us form
     $("#contact-form-submit").click(function(e) {
         e.preventDefault();

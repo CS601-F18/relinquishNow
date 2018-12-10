@@ -15,8 +15,8 @@ class UserSerializer(serializers.ModelSerializer):
             'is_deleted'
         )
         model = User
-
-
+    
+    
 class UserImageSerializer(serializers.ModelSerializer):
     class Meta:
         fields = (
@@ -28,3 +28,22 @@ class UserImageSerializer(serializers.ModelSerializer):
             'is_deleted'
         )
         model = UserImage
+        
+
+class HelpCenterSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = (
+            'hc_id',
+            'hc_name',
+            'hc_desc',
+            'hc_address',
+            'hc_city',
+            'hc_state',
+            'hc_country',
+            'hc_starting_year',
+            'hc_phone',
+            'hc_email',
+            'hc_website'
+        )
+        model = HelpCenter        
+

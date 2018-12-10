@@ -114,6 +114,82 @@ class UserImage(models.Model):
     class Meta:
         db_table = 'user_images'
 
+
+def get_hc_logo_path(instance, filename):
+    return os.path.join('helpcenters', str(instance.hc_id), filename)
+
+class HelpCenter(models.Model):
+    hc_id = models.AutoField(primary_key=True)
+    hc_name = models.CharField(max_length=128)
+    hc_desc = models.CharField(max_length=1024, null=True, blank=True)
+    hc_logo = models.ImageField(upload_to=get_hc_logo_path, null=True, blank=True)
+    hc_address = models.CharField(max_length=256, null=True, blank=True)
+    hc_city = models.CharField(max_length=128, null=True, blank=True)
+    hc_state = models.CharField(max_length=128, null=True, blank=True)
+    hc_country = models.CharField(max_length=128, null=True, blank=True)
+    hc_starting_year = models.DateField(null=True, blank=True)
+    hc_phone = models.CharField(
+        max_length=21,
+        validators=[RegexValidator(r'^[-+]?[0-9]+$')],
+        null=True,
+        blank=True)
+    hc_email = models.EmailField(null=True, blank=True)
+    hc_website = models.CharField(max_length=1200, null=True, blank=True)
+    is_deleted = models.BooleanField(default=False)
+
+    def delete(self, *args, **kwargs):
+        self.is_deleted = True
+        self.save()
+
+    def __str__(self):
+        return str(self.hc_id) + '-' + self.hc_name
+
+    class Meta:
+        db_table = 'help_centers'
+
+
+
+class ItemImage(models.Model):
+    image_id = models.AutoField(primary_key=True)
+    item = models.ForeignKey('Item', to_field='item_id', null=True, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=get_user_image_path, null=True, blank=True)
+    image_created_time = models.DateTimeField(auto_now_add=True)
+    image_updated_time = models.DateTimeField(auto_now=True)
+    is_deleted = models.BooleanField(default=False)
+    
+    def delete(self, *args, **kwargs):
+        self.is_deleted = True
+        self.save()
+    
+    def __str__(self):
+        return str(self.user.user_id) + '-' + str(self.image.name)
+
+    class Meta:
+        unique_together = ('item', 'image')
+        db_table = 'item_images'
+        
+
+class Item(models.Model):
+    item_id = models.AutoField(primary_key=True)
+    item_name = models.CharField(max_length=512)
+    item_desc = models.CharField(max_length=1024, null=True, blank=True)
+    item_creator = models.ForeignKey('User', to_field='user_id', on_delete=models.SET_NULL, null=True)
+    item_created_time = models.DateTimeField(auto_now_add=True)
+    item_updated_time = models.DateTimeField(auto_now=True)
+    is_deleted = models.BooleanField(default=False)
+    
+    def delete(self, *args, **kwargs):
+        self.is_deleted = True
+        self.save()
+
+    def __str__(self):
+        return str(self.alb_id) + '-' + self.alb_name + '-' + self.alb_creator.user_email
+
+    class Meta:
+        unique_together = ('item_name', 'item_creator')
+        db_table = 'items'
+        
+        
 class ContactRequest(models.Model):    
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
@@ -207,3 +283,8 @@ class PostComment(models.Model):
     class Meta:
         unique_together = ('post', 'user')
         db_table = 'post_comments'
+        
+
+def get_item_image_path(instance, filename):
+    return os.path.join('items', str(instance.item.item_id), 'images', filename)
+

@@ -9,13 +9,15 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
 
-from api.models import User, ContactRequest
+from api.models import User, HelpCenter, ContactRequest
 
 
+# This renders page based on user session status
+# If user is not logged in return index.html else return home.html 
 class Index(View):
     def get(self, request):
         if request.user.is_authenticated:
-            response = render(request, 'home.html', {})
+            response = render(request, 'home.html', {"active_user": request.user})
         else:
             response = render(request, 'index.html', {})
             response.set_cookie(key='csrftoken', value=csrf.get_token(request))
@@ -51,14 +53,6 @@ class Login(View):
     
         return HttpResponse(json.dumps(response_data), status=response_data["http_status_code"])
     
-
-class Home(View):
-    @method_decorator(login_required)
-    def get(self, request):
-        response = render(request, 'home.html', {})
-        response.set_cookie(key='csrftoken', value=csrf.get_token(request))
-        return response
-        
 
 class SignUp(View):
     def get(self, request):
@@ -106,19 +100,30 @@ class SignUp(View):
         return HttpResponse(json.dumps(response_data), status=response_data["http_status_code"])
 
 
+class Items(View):
+    @method_decorator(login_required)
+    def get(self, request, item_id):
+        response = render(request, 'items.html', {})
+        return response
+
+
 class UserProfile(View):
     @method_decorator(login_required)
-    def get(self, request, user_id):
-        response = render(request, 'profile.html', {})
-        response.set_cookie(key='csrftoken', value=csrf.get_token(request))
+    def get(self, request, userId):
+        current_user = request.user
+        context = {'user_details': current_user}
+        response = render(request, 'profile.html', context)
         return response
 
     
 class HelpCenterProfile(View):
     @method_decorator(login_required)
-    def get(self, request, centre_id):
-        response = render(request, 'helpcenter.html', {})
-        response.set_cookie(key='csrftoken', value=csrf.get_token(request))
+    def get(self, request, hcId):
+        hc_list = HelpCenter.objects.filter(hc_id=hcId)
+        if hc_list:
+            hc_details = hc_list[0]
+        context = {'hc_details': hc_details}  
+        response = render(request, 'helpcenter.html', context)
         return response
         
 
