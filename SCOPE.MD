@@ -34,8 +34,6 @@
         2. api/items/<< itemId >>/ - GET - returns a particular item with the itemid
         3. api/items/<< itemId >>/requests/ - GET - get list of requests for the item posted
 
-    - Search
-        1. findItem/<string>
 
     - Message
         1. sendMessage/<< messageId >>/
@@ -43,6 +41,4 @@
 
 # Frontend 
  - JQuery
-
-# Search
- - Index items in an inverted Index preferably Solr/ Elastic Search 
+ 

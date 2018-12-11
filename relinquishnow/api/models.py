@@ -195,7 +195,7 @@ class ContactRequest(models.Model):
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 
-    user_report_id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     user_name = models.CharField(max_length=64)
     user_email = models.EmailField()
     user_phone = models.CharField(validators=[phone_regex], max_length=17, blank=True)

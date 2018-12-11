@@ -11,7 +11,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 
 from api.models import User, HelpCenter, ContactRequest
-from api.serializers import UserSerializer
+from api.serializers import UserSerializer, ContactRequestSerializer
 from rest_framework import status
 from rest_framework.response import Response
 
@@ -103,7 +103,8 @@ class Items(View):
         response = render(request, 'items.html', {})
         return response
 
-
+# This loads the profile page
+# This page shows the user followers, following list, item list
 class UserProfile(View):
     @method_decorator(login_required)
     def get(self, request, userId):
@@ -121,7 +122,10 @@ class UserProfile(View):
         except:
             raise Http404('User with this userId doesnt exist')
 
+
 class UserProfileEdit(View):
+    # This loads the profile page edit page
+    # This page shows the user account details, contact details
     @method_decorator(login_required)
     def get(self, request, userId):
         try:
@@ -138,7 +142,8 @@ class UserProfileEdit(View):
         except:
             raise Http404('User not allowed to edit this profile / User with this userId doesnt exist')
 
-        
+    # This updates the user profile details
+    # Throws 400 if we try to edit other user profile 
     @method_decorator(login_required)
     def post(self, request, userId):
         data = json.loads(request.POST.get('data', '{}'))
@@ -168,42 +173,10 @@ class ContactUs(View):
         return response
     
     def post(self, request):
-#         data = json.loads(request.POST.get('data', '{}'))
-#         serializer = UserSerializer(data=data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return JsonResponse(serializer.data)
-#         return JsonResponse(serializer.errors, status=400)
-#     
-        response_data = {
-            "status": "Failure",
-            "http_status_code": 500
-        }
-        
-        user_name = request.POST.get("user_name")
-        user_email = request.POST.get("user_email")
-        user_phone = request.POST.get("user_phone")
-        user_subject = request.POST.get("user_subject")
-        user_message = request.POST.get("user_message")
-        try:
-            contact_obj = ContactRequest(user_name=user_name,
-                                    user_email=user_email,
-                                    user_phone=user_phone,
-                                    user_subject=user_subject,
-                                    user_message=user_message
-                                    )
-            contact_obj.full_clean()
-            contact_obj.save()
-
-            response_data["status"] = "Success"
-            response_data["http_status_code"] = 200
-            
-        except ValidationError:
-            response_data["error_reason"] = "Invalid Data Types"
-            response_data["http_status_code"] = 412
-        except:
-            response_data["error_reason"] = "Error while sending email"
-            response_data["http_status_code"] = 500
-
-        return HttpResponse(json.dumps(response_data), status=response_data["http_status_code"])
+        data = json.loads(request.POST.get('data', '{}'))
+        serializer = ContactRequestSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
 

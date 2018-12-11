@@ -1,10 +1,6 @@
 $(document).ready(function() {
     // Initialize Popover
     $('[data-toggle="popover"]').popover();
-    // Add smooth scrolling on all links inside the nav-bar
-    $('body').scrollspy({
-        target: ".navbar"
-    })
     
     $("#user_dob_picker").datetimepicker({
 	    locale: 'ru',
@@ -98,13 +94,13 @@ $(document).ready(function() {
         var validator = $("#contact-form").validate();
         if ($("#contact-form").valid()) {
             var formData = {
-            	"data": {
+            	"data": JSON.stringify({
             		"user_name": $("#user_name").val(),
                     "user_email": $("#user_email").val(),
                     "user_phone": $("#user_phone").val(),
                     "user_subject": $("#user_subject").val(),
                     "user_message": $("#user_message").val()
-            	},	
+            	}),	
                 "csrfmiddlewaretoken": getCookie("csrftoken")
             }
             $.ajax({
@@ -293,7 +289,7 @@ $(document).ready(function() {
             formData.append("image_type", 0);
             formData.append("csrfmiddlewaretoken", getCookie("csrftoken"));
             $.ajax({
-                url: "/user/" + user_id + "/image/submit/",
+                url: "/user/" + user_id + "/images/",
                 data: formData,
                 type: 'POST',
                 contentType: false,

@@ -18,7 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
             'is_deleted'
         )
         model = User
-    
+
     
 class UserImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -50,3 +50,16 @@ class HelpCenterSerializer(serializers.ModelSerializer):
         )
         model = HelpCenter        
 
+
+class ContactRequestSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        fields = (
+            'id',
+            'user_name',
+            'user_email',
+            'user_phone',
+            'user_subject',
+            'user_message',
+        )
+        model = ContactRequest
