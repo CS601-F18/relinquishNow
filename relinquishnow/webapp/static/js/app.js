@@ -182,6 +182,25 @@ $(document).ready(function() {
         }
     });
     
+    
+    if($('.user-images-wrapper').length>0){
+    	var user_id = $('.user-images-wrapper').attr("id");
+    	
+    	$.ajax({
+            type: "GET",
+            url: "/user/" + user_id + "/images/",
+            beforeSend: function() {
+            },
+            success: function(data) {
+            	$('.user-images-wrapper').html(data);
+            },
+            error: function(response) {
+            },
+            complete: function() {
+            }
+        });
+    }
+    
     $(".user-profile-edit-form-submit").click(function(e) {
         e.preventDefault();
         var validator = $("#user-profile-edit-form").validate();
@@ -286,7 +305,6 @@ $(document).ready(function() {
             var formData = new FormData();
             formData.append("user_id", user_id);
             formData.append("profile_image", profileImage);
-            formData.append("image_type", 0);
             formData.append("csrfmiddlewaretoken", getCookie("csrftoken"));
             $.ajax({
                 url: "/user/" + user_id + "/images/",
@@ -295,6 +313,7 @@ $(document).ready(function() {
                 contentType: false,
                 processData: false,
                 success: function(data) {
+                	$('.user-images-wrapper').html(data);
                     $(".profile-img div").css("background-image", 'url(' + window.URL.createObjectURL($("#imageUpload")[0].files[0]) + ')');
                 }
             });

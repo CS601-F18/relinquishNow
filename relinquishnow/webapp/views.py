@@ -10,7 +10,7 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
 
-from api.models import User, HelpCenter, ContactRequest
+from api.models import User, HelpCenter, ContactRequest, UserImage
 from api.serializers import UserSerializer, ContactRequestSerializer
 from rest_framework import status
 from rest_framework.response import Response
@@ -111,16 +111,70 @@ class UserProfile(View):
         try:
             user_details = User.objects.get(user_id=userId)
             current_user = request.user
+            user_profile_image = UserImage.objects.filter(user=user_details, image_is_current=True)
             is_editable = True if user_details.user_id == current_user.user_id else False
                 
             context = {'user_details': user_details,
                        'active_user': current_user,
                        'is_editable': is_editable,
+                       'user_profile_image': user_profile_image
                        }
             response = render(request, 'profile.html', context)
             return response
         except:
             raise Http404('User with this userId doesnt exist')
+
+# This loads the profile page
+# This page shows the user followers, following list, item list
+class UserImages(View):
+    @method_decorator(login_required)
+    def get(self, request, userId):
+        try:
+            user_details = User.objects.get(user_id=userId)
+            user_images = UserImage.objects.filter(user=user_details)
+            is_editable = True if user_details.user_id == request.user.user_id else False
+            context = {
+                'user_details': user_details,
+                'user_images': user_images,
+                'is_editable' : is_editable
+            }
+            response = render(request, 'carousals/images.html', context)
+            return response
+        except:
+            raise Http404('User with this userId doesnt exist')
+        
+    
+    @method_decorator(login_required)
+    def post(self, request, userId):
+        try:
+            profile_image = request.FILES.get('profile_image')
+            print(profile_image.name)
+            if not profile_image:
+                return JsonResponse({"error": "Image File Is Required"}, status=400)
+            
+            user_details = User.objects.get(user_id=userId)
+            print(UserImage.objects.filter(user=user_details, image=profile_image.name).query)
+            if not UserImage.objects.filter(user=user_details, image=profile_image.name):
+                UserImage.objects.filter(user=user_details).update(image_is_current=False)
+                user_image_obj = UserImage(user=user_details, image=profile_image)
+                user_image_obj.full_clean()
+                user_image_obj.save()
+            
+            user_images = UserImage.objects.filter(user=user_details)
+            is_editable = True if user_details.user_id == request.user.user_id else False
+            
+            context = {
+                'user_details': user_details,
+                'user_images': user_images,
+                'is_editable' : is_editable
+            }
+            response = render(request, 'carousals/images.html', context)
+            return response
+            
+            
+        except:
+            raise Http404('User with this userId doesnt exist')
+
 
 
 class UserProfileEdit(View):

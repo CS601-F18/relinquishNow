@@ -1,0 +1,26 @@
+{% if user_images %}
+<div class="row">
+    <div class="col-md-12">
+      <div id="mdb-lightbox-ui"></div>
+        <div class="mdb-lightbox" data-pswp-uid="2">
+          {% for user_image in user_images %}
+            {% with user_image.image as img %}
+            <figure class="profile-images">
+              <a href = "javascript:void(0)">
+                <img src="{{ img.url }}" class="img-fluid w-100 my-2 px-1 py-1 img_hgt">
+              </a>
+            </figure>
+            {% endwith %}
+          {% endfor %}
+        </div>
+    </div>
+</div>
+{% else %}
+  {% if is_editable %}
+  <p align="justify" class="grey-text-3">No photos to show! Would you like to add few pictures? Please
+    <a href="#">Click here</a> to do so.
+  </p>
+  {% else %}
+  <p align="justify" class="grey-text-3">No pictures added yet!</p>
+  {% endif %}
+{% endif %}

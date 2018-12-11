@@ -615,45 +615,16 @@
   padding: 0.25em 0.25em;
 }
 
+.profile-images{
+  width:200px;
+  height:200px;
+  overflow: hidden;
+  padding: 2px;
+  margin: 0px 5px !important;
+}
+
 
 /* nav bar post login social icons CSS ends */
-
-
-/* Careers Main Begins */
-
-.careers-slider .main-jumbotron {
-  background: url('/static/images/career-intro.jpg') no-repeat;
-}
-
-.careers-main .career-block {}
-
-.careers-main .career-block .card {
-  border: 1px solid #ddd;
-  -webkit-box-shadow: 0 1px 12px 0 rgba(0, 0, 0, .35);
-  -moz-box-shadow: 0 1px 12px 0 rgba(0, 0, 0, .35);
-  box-shadow: 0 1px 12px 0 rgba(0, 0, 0, .35);
-  height: 360px;
-}
-
-.careers-main .career-block .card-text {
-  text-overflow: ellipsis;
-  white-space: normal;
-  overflow: hidden;
-  height: 190px;
-}
-
-.careers-main .career-block .nav-link {
-  position: absolute;
-  bottom: 25px;
-  left: 25%;
-  width: 50%;
-  text-align: center;
-  margin: 0px auto;
-}
-
-
-/* Careers Main Ends */
-
 
 /* Contact Us CSS Start */
 
@@ -885,23 +856,6 @@
 
 /* Contact Us CSS End */
 
-
-/* Coming Soon CSS Start */
-
-.team-slider.coming-soon .main-jumbotron {
-  background: url('/static/images/coming-soon-intro.jpeg') no-repeat;
-}
-
-.team-slider.coming-soon-streamingnow .main-jumbotron {
-  background: url('/static/images/home-slider-03.jpg') no-repeat;
-}
-
-.team-slider.coming-soon-top-picks .main-jumbotron {
-  background: url('/static/images/home-slider-01.jpg') no-repeat;
-}
-
-
-/* Coming Soon CSS End */
 
 /* Streaming Now CSS Start */
 
