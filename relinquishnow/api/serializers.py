@@ -31,7 +31,26 @@ class UserImageSerializer(serializers.ModelSerializer):
             'is_deleted'
         )
         model = UserImage
+
+
+class ItemSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        fields = (
+            'item_name',
+            'item_desc',
+            'item_creator',
+        )
+        model = Item
         
+class ItemRequestSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        fields = (
+            'item_id',
+            'requested_user_id',
+        )
+        model = ItemRequests          
 
 class HelpCenterSerializer(serializers.ModelSerializer):
     class Meta:

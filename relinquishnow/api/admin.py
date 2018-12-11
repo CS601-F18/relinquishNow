@@ -5,6 +5,8 @@ from .models import *
 
 admin.site.register(User)
 admin.site.register(HelpCenter)
+admin.site.register(Item)
+admin.site.register(ItemRequests)
 admin.site.register(UserFollower)
 admin.site.register(UserImage)
 admin.site.register(ContactRequest)

@@ -1568,18 +1568,6 @@ a {
   color: #fff;
 }
 
-.trackimage {
-  background-image: url('/static/images/track_default.png');
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
-
-.playlistimage {
-  background-image: url('/static/images/playlist.jpg');
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
-
 div#playlistCarousel .scroll-box .playlist-item  {
   display: block;
   width: 200px;
@@ -1592,44 +1580,13 @@ div#playlistCarousel .scroll-box .playlist-item  {
 }
 
 
-/* added for issue 85 */
-
 .form-error {
   margin-left: 40px;
-}
-
-.jobapplication-intro {
-  background: url(/static/images/contact-us-intro.jpg) no-repeat;
-  background-size: cover;
-  background-position: top;
-  background-attachment: fixed;
-  padding: 4.17% 0%;
-  opacity: 0.9;
-  font-family: FaktSlabPro;
-}
-
-.jobapplication-container {
-  background-color: rgba(220, 220, 220, 0.95);
-  opacity: 0.7;
-}
-
-.jobapplication-intro .jobapplication-container .md-form input {
-  background-color: rgba(220, 220, 220, 0.95);
-  border-bottom: 2px solid #000000;
 }
 
 #password-reset {
   width: 100%;
 }
-
-
-/*------------css added for issue-108 ----------*/
-
-
-/*===== SLIDE MENU - streaming now page ======*/
-
-
-/*---------- HIDE SELECT CHECKBOX ----------*/
 
 .toggle,
 .full-screen-close {
@@ -1649,8 +1606,6 @@ div#playlistCarousel .scroll-box .playlist-item  {
   will-change: opacity;
 }
 
-
-/*---------- TOGGLE OFF-CANVAS MENU ----------*/
 
 .toggle:checked+.fluid-container>.menu-container {
   margin-left: 0;
@@ -2938,7 +2893,6 @@ thead {
 }
 
 .album-item {
-  background-image: url('/static/images/music.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -3003,11 +2957,6 @@ thead {
 #playlist_add_form .trackimage {
     width:200px;
     height:180px;
-}
-
-.trackimage {
-  background: url('/static/images/track_default.png') no-repeat;
-  background-size: 100% 100%;
 }
 
 #playlist_add_form .error {
@@ -3326,19 +3275,16 @@ color: white !important;
 }
 
 .class-wrapper .class-wrapper .trackimage {
-  background-image: url('/static/images/music.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
 
 .class-wrapper .class-wrapper .albumimage {
-  background-image: url('/static/images/music.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
 
 .class-wrapper .playlistimage {
-  background-image: url('/static/images/playlist.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -3664,10 +3610,4 @@ button:focus {
     top: 20%;
     right: 5%;
   }
-}
-
-/* css added for FAQ*/
-
-.border-1 {
-    border: 1px solid;
 }

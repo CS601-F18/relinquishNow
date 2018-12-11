@@ -2,8 +2,9 @@ import json
 
 from django.http.response import Http404
 
-from api.models import User, HelpCenter, UserFollower
-from api.serializers import UserSerializer, HelpCenterSerializer
+from api.models import User, HelpCenter, UserFollower, Item, ItemRequests
+from api.serializers import UserSerializer, HelpCenterSerializer, ItemSerializer, \
+    ItemRequestSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -101,14 +102,14 @@ class HelpCenterDetail(APIView):
 
 class ItemsList(APIView):
     def get(self, request):
-        helpCenters = HelpCenter.objects.all()
-        serializer = HelpCenterSerializer(helpCenters, many=True)
+        helpCenters = Item.objects.all()
+        serializer = ItemSerializer(helpCenters, many=True)
         return Response(serializer.data)
     
     
     def post(self, request):
         helpCenter = json.loads(request.query_params.get('data', {}))
-        serializer = HelpCenterSerializer(data=helpCenter)
+        serializer = ItemSerializer(data=helpCenter)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -116,22 +117,37 @@ class ItemsList(APIView):
 
 
 class ItemDetail(APIView):
-    def get_object(self, hcId):
+    def get_object(self, itemId):
         try:
-            return HelpCenter.objects.get(hc_id=hcId)
+            return Item.objects.get(item_id=itemId)
         except HelpCenter.DoesNotExist:
             raise Http404
 
-    def get(self, request, hcId):
-        helpCenter = self.get_object(hcId)
-        serializer = HelpCenterSerializer(helpCenter)
+    def get(self, request, itemId):
+        item = self.get_object(itemId)
+        serializer = ItemSerializer(item)
         return Response(serializer.data)
 
-    def put(self, request, hcId):
-        helpCenter = self.get_object(hcId)
-        serializer = HelpCenterSerializer(helpCenter, data=request.data)
+    def put(self, request, itemId):
+        item = self.get_object(itemId)
+        serializer = ItemSerializer(item, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class ItemRequestList(APIView):
+    def get(self, request, itemId):
+        itemRequests = ItemRequests.objects.filter(item_id=itemId)
+        serializer = ItemRequestSerializer(itemRequests, many=True)
+        return Response(serializer.data)
+    
+    
+    def post(self, request):
+        itemRequest = json.loads(request.query_params.get('data', {}))
+        serializer = ItemRequestSerializer(data=itemRequest)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

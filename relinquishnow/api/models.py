@@ -184,12 +184,32 @@ class Item(models.Model):
         self.save()
 
     def __str__(self):
-        return str(self.alb_id) + '-' + self.alb_name + '-' + self.alb_creator.user_email
+        return str(self.item_id) + '-' + self.item_name
 
     class Meta:
         unique_together = ('item_name', 'item_creator')
         db_table = 'items'
-        
+ 
+ 
+class ItemRequests(models.Model):
+    item_request_id = models.AutoField(primary_key=True)
+    item_id = models.IntegerField(null=False, blank=False)
+    requested_user_id = models.IntegerField(null=False, blank=False)
+    request_created_time = models.DateTimeField(auto_now_add=True)
+    request_updated_time = models.DateTimeField(auto_now=True)
+    is_deleted = models.BooleanField(default=False)
+    
+    def delete(self, *args, **kwargs):
+        self.is_deleted = True
+        self.save()
+
+    def __str__(self):
+        return str(self.item_id) + '-' + str(self.requested_user_id)
+
+    class Meta:
+        unique_together = ('item_id', 'requested_user_id')
+        db_table = 'item_requests'        
+
         
 class ContactRequest(models.Model):    
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',

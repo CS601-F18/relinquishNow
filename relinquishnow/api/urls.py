@@ -10,20 +10,20 @@ urlpatterns = [
     path('users/<int:userId>/itemsRequested/', UserDetail.as_view()),
     
     
-    path('items/', UserList.as_view()),
-    path('items/<int:itemId>/', UserDetail.as_view()),
-    path('items/<int:itemId>/requests/', UserDetail.as_view()),
+    path('items/', ItemsList.as_view()),
+    path('items/<int:itemId>/', ItemDetail.as_view()),
+    path('items/<int:itemId>/requests/', ItemRequestList.as_view()),
     
-    
-    path('posts/', UserList.as_view()),
-    path('posts/<int:postId>/', UserDetail.as_view()),
     
     path('helpcenters/', HelpCenterList.as_view()),
     path('helpcenters/<int:hcId>/', HelpCenterDetail.as_view()),
     path('helpcenters/<int:hcId>/members/', UserDetail.as_view()),
     
-    path('messages/', UserDetail.as_view()),
-    path('messages/<int:messageId>/', UserDetail.as_view()),
+#     path('posts/', UserList.as_view()),
+#     path('posts/<int:postId>/', UserDetail.as_view()),
+    
+#     path('messages/', UserDetail.as_view()),
+#     path('messages/<int:messageId>/', UserDetail.as_view()),
     
 #     path('users/<int:userId>/images/', UserDetail.as_view()),
 #     path('users/<int:userId>/posts/', UserDetail.as_view()),
