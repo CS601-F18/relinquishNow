@@ -11,6 +11,8 @@ class UserSerializer(serializers.ModelSerializer):
             'user_first_name',
             'user_last_name',
             'user_email',
+            'user_birthday',
+            'user_unique_name',
             'user_desc',
             'is_active',
             'is_deleted'

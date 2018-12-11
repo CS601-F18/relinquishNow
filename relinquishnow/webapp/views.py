@@ -121,6 +121,34 @@ class UserProfile(View):
         except:
             raise Http404('User with this userId doesnt exist')
 
+class UserProfileEdit(View):
+    @method_decorator(login_required)
+    def get(self, request, userId):
+        try:
+            user_details = User.objects.get(user_id=userId)
+            current_user = request.user
+            if user_details.user_id == current_user.user_id:
+                context = {'user_details': user_details,
+                           'active_user': current_user,
+                           }
+                response = render(request, 'profile-edit.html', context)
+                return response
+            else:
+                raise Http404('User not allowed to edit this profile')
+        except:
+            raise Http404('User not allowed to edit this profile / User with this userId doesnt exist')
+
+        
+    @method_decorator(login_required)
+    def post(self, request, userId):
+        data = json.loads(request.POST.get('data', '{}'))
+        user_details = User.objects.get(user_id=userId)
+        serializer = UserSerializer(user_details, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)   
+        
     
 class HelpCenterProfile(View):
     @method_decorator(login_required)

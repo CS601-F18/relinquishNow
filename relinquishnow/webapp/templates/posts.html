@@ -1,0 +1,105 @@
+<div class="card mb-2 w-100">
+  <div class="card-body text-center">
+    <div class="row m-0">
+      <div class="col-md-12 col-sm-12 post-creator-wrapper p-0 text-left">
+        <div class="post-creator-img d-inline-block mr-2">
+          {% if request.user.user_img %}
+          {% with request.user.user_img as img %}
+          <img src="{{ img.url }}" class="img-fluid rounded-0">
+          {% endwith %}
+          {% else %}
+          <img src="/static/images/employee-default.png" class="img-fluid rounded-0" alt="user profile image">
+          {% endif %}
+        </div>
+        <div class="post-creator-info d-inline-block">
+          <h6 class="mt-0 font-small mb-0">
+            <a href="#" class="font-blue font-weight-bold">Vikas Ramaneti</a>
+            <span> has posted an <a href="#" class="font-blue font-weight-bold">item</a></span>
+          </h6>
+          <p class="mb-0">22nd June, 2:30 PM</p>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-0">
+      <div class="col-md-12 p-0 d-block">
+        <div class="form-group">
+          <div class="md-form mb-0">
+            <i class="prefix"></i>
+            <input class="m-0 p-0 w-100" placeholder="Add post description" id="user_message" rows=4 name="user_message" data-validation="length" minlength="10" maxlength="1200" required="required" type="text"/>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <div class="row py-4 px-2 bg-light mx-0">
+      <div class="col-md-12 album_description">
+        <div class="input-group">
+          <div class="md-form mb-2">
+            <i class="prefix"></i>
+            <label class="ml-0" for="user_message">Item Description</label>
+            <div class="p-0 ml-0 text-justify">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row pb-4 px-2 bg-light mx-0">
+      <div class="col-md-12">
+        <div class="card-body w-100 p-0">
+          <div class="container-fluid w-100 mx-auto" id="postImageCarousel" >
+            <div class="row">
+              <div class="scroll-left">
+                <a class="left"><i class="fa fa-chevron-circle-left fa-2x" aria-hidden="true"></i></a>
+              </div>
+              <div class="scroll-wrapper scroll-box" scroll-position=0>
+                <div class="scroll-item mr-2">
+                  <div class="album-item-wrapper" album_id="{{album.alb_id}}">
+                    <div class="album-item"{% if album.alb_image %}{% with album.alb_image as img %}style="background: url('{{ img.url }}')"{% endwith %}{% endif %}>
+                      <h5 class="album-title">{{album.alb_name}}</h5>
+                    </div>
+                    <div class="album-hover">
+                      <div class="album-options">
+                        <div>
+                          <a href="#" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Play Album">
+                            <i class="fa fa-play-circle px-2 py-1 font-white" aria-hidden="true"></i>
+                          </a>
+                          {% if is_editable %}
+                          <a href="#" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Edit Album">
+                            <i class="fa fa-edit px-2 py-1 font-white" aria-hidden="true"></i>
+                          </a>
+                          {% else %}
+                          <a href="#" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Add to Favorites">
+                            <i class="fa fa-heart px-2 py-1 font-white" aria-hidden="true"></i>
+                          </a>
+                          {% endif %}
+                          <a href="#" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Add to Playlist">
+                            <i class="fa fa-plus-square px-2 py-1 font-white" aria-hidden="true"></i>
+                          </a>
+                        </div>
+                        <div class="mt-2">
+                          <a class="btn bg-green track-like mr-2{% for album_like in album_likes %} {% if album_like.music_object_id ==  album.alb_id and album_like.music_like_status == 1 %} disabled {% endif %} {% endfor %}" href="/like/submit/{{album.alb_id}}/album"><i class="fas fa-thumbs-up font-white"></i></a>
+                          <a class="btn bg-red track-dislike {% for album_like in album_likes %}{% if album_like.music_object_id ==  album.alb_id and album_like.music_like_status == -1 %} disabled {% endif %}{% endfor %}"  href="/dislike/submit/{{album.alb_id}}/album"><i class="fas fa-thumbs-down font-white"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="scroll-item mr-2">
+                  <div class="album-item-wrapper bg-dark-grey">
+                    <div class="album-item read-more">
+                      <h6 class="album-title">Show More</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="scroll-right">
+                <a class="right"><i class="fa fa-chevron-circle-right fa-2x" aria-hidden="true"></i></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-tw btn-sm waves-effect mx-2 my-2 bg-red"> <i class="fas fa-thumbs-up"> </i> Like</button>
+    <button class="btn btn-tw btn-sm waves-effect mx-2 my-2 bg-blue"><i class="fa fa-comment" aria-hidden="true"></i> Comment</button>
+    <button class="btn btn-tw btn-sm waves-effect mx-2 my-2 bg-green"><i class="fas fa-share-alt"></i> Share</button>
+  </div>
+</div>

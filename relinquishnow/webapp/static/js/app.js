@@ -5,15 +5,13 @@ $(document).ready(function() {
     $('body').scrollspy({
         target: ".navbar"
     })
+    
+    $("#user_dob_picker").datetimepicker({
+	    locale: 'ru',
+	    format: 'YYYY-MM-DD',
+	    useCurrent: false
+	});
     // This functions modify the carousel elements on home page
-    var backgrounds = new Array(
-        "url('/static/images/home-slider-01.jpg')",
-        "url('/static/images/home-slider-02.jpg')",
-        "url('/static/images/home-slider-03.jpg')",
-        "url('/static/images/home-slider-04.jpg')",
-        "url('/static/images/home-slider-05.jpg')",
-        "url('/static/images/home-slider-06.jpg')",
-    );
     var tags = new Array(
         "Providing necessary support to the homeless and less previleged",
         "Connect with assistance centres and facilities near your locality",
@@ -24,7 +22,7 @@ $(document).ready(function() {
 
     function nextBackground() {
         current++;
-        current = current % backgrounds.length;
+        current = current % tags.length;
         $(".image-slider").removeClass("hover").css({
             '-webkit-animation': 'bg 30s linear infinite',
         })
@@ -187,6 +185,54 @@ $(document).ready(function() {
             });
         }
     });
+    
+    $(".user-profile-edit-form-submit").click(function(e) {
+        e.preventDefault();
+        var validator = $("#user-profile-edit-form").validate();
+        if ($("#user-profile-edit-form").valid()) {
+            var formData = {
+        		"data": JSON.stringify({
+        			"user_desc": $("#user_desc").val(),
+	                "user_first_name": $("#user_first_name").val(),
+	                "user_last_name": $("#user_last_name").val(),
+	                "user_unique_name": $("#user_unique_name").val(),
+	                "user_birthday": $("#user_birthday").val(),
+	                "user_email": $("#user_email").val(),
+	                "user_phone" : $("#user_phone").val(),
+	                "user_password": $("#user_password").val(),
+	    		}),
+                "csrfmiddlewaretoken": getCookie("csrftoken")
+            }
+            $.ajax({
+                type: "POST",
+                url: "/user/" + $("#user_id").val() + "/edit/",
+                data: formData,
+                beforeSend: function() {
+                    $(".fa-spinner", $("#user-profile-edit-form-submit")).css('display', 'inline-block');
+                    $("#user-profile-edit-form-submit").addClass("disabled");
+                },
+                success: function(data) {
+                	$("#user-profile-edit-form .valid-feedback").show();
+                	setTimeout(function() {
+                        $(".valid-feedback").hide();
+                    }, 3000);
+                },
+                error: function(response) {
+                    json_data = JSON.parse(response.responseText)
+                    $("#user-profile-edit-form .invalid-feedback").show();
+                    $("#user-profile-edit-form .invalid-feedback").html(json_data["error_reason"]);
+                    setTimeout(function() {
+                        $(".invalid-feedback").hide();
+                    }, 3000);
+                },
+                complete: function() {
+                    $(".fa-spinner", $("#user-profile-edit-form-submit")).css('display', 'none');
+                    $("#user-profile-edit-form-submit").removeClass("disabled");
+                }
+            });
+        }
+    });
+    
     
     // This function is used to submit login form
     $("#login-form-submit").click(function(e) {

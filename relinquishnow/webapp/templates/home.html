@@ -12,7 +12,7 @@
     </div>
     <div>
       <ul class="collapsible">
-        <li class="active"><a class="collapsible-header text-dark" href="/"><i class="fa fa-home" style="padding-right: 0.9rem"></i> Streaming Now</a></li>
+        <li class="active"><a class="collapsible-header text-dark" href="/"><i class="fa fa-home" style="padding-right: 0.9rem"></i> Home</a></li>
         <li><a class="collapsible-header text-dark" href="/user/{{user.user_id}}"><i class="fa fa-user"></i> Profile</a></li>
         <li><a class="collapsible-header text-dark" href="/helpcentres"><i class="fa fa-heartbeat"></i> Help Centres</a></li>
         <li><a class="collapsible-header text-dark" href="/admin"><i class="fa fa-certificate"></i> Admin</a></li>
@@ -107,4 +107,27 @@
 {% block slider %}
 {% endblock %}
 {% block main %}
+<div class="row bg-light-grey">
+  <div class="col-md-8 m-auto">
+    <div class="row mx-0 my-2">
+      <div class="card mb-2 w-100">
+        <div class="card-body text-center">
+          <form id="blog-comment-form">
+            <div class="form-group basic-textarea shadow-textarea m-0">
+              <textarea id="user-comment" name="user-comment" required="required" class="form-control" rows="3" placeholder="Write something here..."></textarea>
+            </div>
+            <div class="text-right">
+              <button class="btn bg-dark-grey profile-img"><i class="fas fa-image mr-2"></i> Photo</button>
+              <input id="imageUpload" type="file" accept="image/png, image/jpeg, image/gif" name="post_files" placeholder="Photo">
+                <button class="btn waves-effect my-2 bg-orange post-submit text-right"><i class="fas fa-paper-plane"></i> Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="div post_wrapper">
+        {% include 'posts.html' %}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

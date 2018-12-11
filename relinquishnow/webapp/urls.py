@@ -26,6 +26,8 @@ urlpatterns = [
     path('login/', Login.as_view()),
     path('logout/', Logout.as_view()),
     path('user/<userId>/', UserProfile.as_view()),
+    path('user/<userId>/edit/', UserProfileEdit.as_view()),
+    path('helpcenters/', HelpCenterProfile.as_view()),
     path('helpcenter/<hcId>/', HelpCenterProfile.as_view()),
     path('contact/', ContactUs.as_view())
 ]

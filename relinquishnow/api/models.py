@@ -45,6 +45,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     user_unique_name = models.CharField(max_length=128, unique=True, blank=True, null=True)
     user_email = models.EmailField(unique=True)
     user_phone = models.CharField(max_length=16, validators=[RegexValidator(r'^[-+]?[0-9]+$')], null=True, blank=True)
+    user_birthday = models.DateField(null=True, blank=True)
     user_desc = models.CharField(max_length=1200, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
