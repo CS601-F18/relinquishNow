@@ -8,39 +8,13 @@
       <div class="scroll-wrapper scroll-box" scroll-position=0>
         {% for item in items %}
           <div class="scroll-item mr-2">
-            <div class="album-item-wrapper" album_id="{{album.alb_id}}">
+            <div class="album-item-wrapper" item_id="{{item.item_id}}">
               <div class="album-item"{% if album.alb_image %}{% with album.alb_image as img %}style="background-image: url('{{ img.url }}')"{% endwith %}{% endif %}>
                 <h5 class="album-title">{{item.item_name}}</h5>
                 <p class="album-desc d-none">{{item.item_desc}}</p>
               </div>
-              <div class="album-hover">
-                <div class="album-options">
-                  <div>
-                    <a href="#" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Play Album">
-                      <i class="fa fa-play-circle px-2 py-1 font-white" aria-hidden="true"></i>
-                    </a>
-                    {% if is_editable %}
-                    <a href="#" class="edit-album" id="{{album.alb_id}}" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Edit Album">
-                      <i class="fa fa-edit px-2 py-1 font-white" aria-hidden="true"></i>
-                    </a>
-                    {% else %}
-                    <a href="#" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Add to Favorites">
-                      <i class="fa fa-heart px-2 py-1 font-white" aria-hidden="true"></i>
-                    </a>
-                    {% endif %}
-                    <a href="#" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Add to Playlist">
-                      <i class="fa fa-plus-square px-2 py-1 font-white" aria-hidden="true"></i>
-                    </a>
-                  </div>
-                  <div class="mt-2">
-                    <a class="btn bg-green track-like mr-2{% for album_like in album_likes %} {% if album_like.music_object_id ==  album.alb_id and album_like.music_like_status == 1 %} disabled {% endif %} {% endfor %}" href="/like/submit/{{album.alb_id}}/album"><i class="fas fa-thumbs-up font-white"></i></a>
-                    <a class="btn bg-red track-dislike {% for album_like in album_likes %}{% if album_like.music_object_id ==  album.alb_id and album_like.music_like_status == -1 %} disabled {% endif %}{% endfor %}"  href="/dislike/submit/{{album.alb_id}}/album"><i class="fas fa-thumbs-down font-white"></i></a>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
-          {% endif %}
         {% endfor %}
         {% if items|length > 20 %}
           <div class="scroll-item mr-2">
