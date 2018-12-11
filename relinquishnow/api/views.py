@@ -19,7 +19,7 @@ class UserList(APIView):
         data = json.loads(request.query_params.get('data', {}))
         serializer = UserSerializer(data=data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(password=data.get("user_password"))
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

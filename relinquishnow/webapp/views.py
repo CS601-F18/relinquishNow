@@ -47,6 +47,9 @@ class SignUp(View):
         serializer = UserSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
+            userObj = User.objects.get(user_email=data.get("user_email"))
+            userObj.set_password(data.get("user_password"))
+            userObj.save()
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
 
@@ -61,7 +64,9 @@ class Login(View):
         response = render(request, 'login.html', {})
         response.set_cookie(key='csrftoken', value=csrf.get_token(request))
         return response
-        
+    
+    # This will authenticate the user credentials and create the user session
+    # User object is saved in request going forward    
     def post(self, request):
         response_data = {
             "status": "Failure",
@@ -90,6 +95,7 @@ class Logout(View):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect("/")
+    
 
 class Items(View):
     @method_decorator(login_required)
