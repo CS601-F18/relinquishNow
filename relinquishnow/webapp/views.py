@@ -3,13 +3,17 @@ import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
-from django.http.response import HttpResponse, HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect, Http404, \
+    JsonResponse
 from django.middleware import csrf
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
 
 from api.models import User, HelpCenter, ContactRequest
+from api.serializers import UserSerializer
+from rest_framework import status
+from rest_framework.response import Response
 
 
 # This renders page based on user session status
@@ -26,49 +30,25 @@ class Index(View):
 
 
 class SignUp(View):
+    # This renders a sign up page to sign up a user.
+    # If user is already logged in redirects to home page
     def get(self, request):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect("/")
+        
         response = render(request, 'signup.html', {})
         response.set_cookie(key='csrftoken', value=csrf.get_token(request))
         return response
-        
-    def post(self, request):
-        response_data = {
-            "status": "Failure",
-            "http_status_code": 500
-        }
-
-        user_first_name = request.POST.get("user_first_name")
-        user_last_name = request.POST.get("user_last_name")
-        user_email = request.POST.get("user_email")
-        user_password = request.POST.get("user_password")
-        user_phone = request.POST.get("user_phone")
-
-        if not User.objects.filter(user_email=user_email).exists():
-            try:
-                user_register_obj = User(
-                    user_first_name=user_first_name,
-                    user_last_name=user_last_name,
-                    user_email=user_email,
-                    user_phone=user_phone,
-                    password=user_password)
-
-                user_register_obj.full_clean()
-                user_register_obj.set_password(user_password)
-                user_register_obj.save()
-
-                response_data["status"] = "Success"
-                response_data["http_status_code"] = 200
-
-            except ValidationError:
-                response_data["error_reason"] = "Invalid Data Types"
-                response_data["http_status_code"] = 412
-            except Exception as e:
-                print(e)
-                response_data["error_reason"] = "Error while saving user sign up information"
-        else:
-            response_data["error_reason"] = "Email already registered"
     
-        return HttpResponse(json.dumps(response_data), status=response_data["http_status_code"]) 
+    # This adds user details from sign up form to user table.
+    # If user with email already exists raises a 400 response
+    def post(self, request):
+        data = json.loads(request.POST.get('data', '{}'))
+        serializer = UserSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
 
 
 class Login(View):
@@ -121,10 +101,19 @@ class Items(View):
 class UserProfile(View):
     @method_decorator(login_required)
     def get(self, request, userId):
-        current_user = request.user
-        context = {'user_details': current_user}
-        response = render(request, 'profile.html', context)
-        return response
+        try:
+            user_details = User.objects.get(user_id=userId)
+            current_user = request.user
+            is_editable = True if user_details.user_id == current_user.user_id else False
+                
+            context = {'user_details': user_details,
+                       'active_user': current_user,
+                       'is_editable': is_editable,
+                       }
+            response = render(request, 'profile.html', context)
+            return response
+        except:
+            raise Http404('User with this userId doesnt exist')
 
     
 class HelpCenterProfile(View):
@@ -145,6 +134,13 @@ class ContactUs(View):
         return response
     
     def post(self, request):
+#         data = json.loads(request.POST.get('data', '{}'))
+#         serializer = UserSerializer(data=data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return JsonResponse(serializer.data)
+#         return JsonResponse(serializer.errors, status=400)
+#     
         response_data = {
             "status": "Failure",
             "http_status_code": 500

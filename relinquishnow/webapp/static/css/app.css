@@ -331,10 +331,7 @@
 /* Sign Up CSS Start */
 
 .sign-up {
-  background: url(/static/images/home-slider-05.jpg) no-repeat;
-  background-size: cover;
-  background-position: top;
-  background-attachment: fixed;
+  background-color: #fafafa;
   padding: 4.17% 0%;
   opacity: 0.9;
   font-family: FaktSlabPro;

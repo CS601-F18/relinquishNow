@@ -100,11 +100,13 @@ $(document).ready(function() {
         var validator = $("#contact-form").validate();
         if ($("#contact-form").valid()) {
             var formData = {
-                "user_name": $("#user_name").val(),
-                "user_email": $("#user_email").val(),
-                "user_phone": $("#user_phone").val(),
-                "user_subject": $("#user_subject").val(),
-                "user_message": $("#user_message").val(),
+            	"data": {
+            		"user_name": $("#user_name").val(),
+                    "user_email": $("#user_email").val(),
+                    "user_phone": $("#user_phone").val(),
+                    "user_subject": $("#user_subject").val(),
+                    "user_message": $("#user_message").val()
+            	},	
                 "csrfmiddlewaretoken": getCookie("csrftoken")
             }
             $.ajax({
@@ -148,12 +150,14 @@ $(document).ready(function() {
         var validator = $("#sign-up-form").validate();
         if ($("#sign-up-form").valid()) {
             var formData = {
-                "user_first_name": $("#user_first_name").val(),
-                "user_last_name": $("#user_last_name").val(),
-                "user_type": $("#user_type").val(),
-                "user_email": $("#user_email").val(),
-                "user_password": $("#user_password").val(),
-                "user_phone": $("#user_phone").val(),
+        		"data": JSON.stringify({	
+	                "user_first_name": $("#user_first_name").val(),
+	                "user_last_name": $("#user_last_name").val(),
+	                "user_type": $("#user_type").val(),
+	                "user_email": $("#user_email").val(),
+	                "user_password": $("#user_password").val(),
+	                "user_phone": $("#user_phone").val()
+        		}),
                 "csrfmiddlewaretoken": getCookie("csrftoken")
             }
             $.ajax({
