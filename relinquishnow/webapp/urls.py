@@ -30,7 +30,7 @@ urlpatterns = [
     path('user/<userId>/', UserProfile.as_view()),
     path('user/<userId>/images/', UserImages.as_view()),
     path('user/<userId>/edit/', UserProfileEdit.as_view()),
-    path('helpcenters/', HelpCenterProfile.as_view()),
+    path('helpcenters/', HelpCenterList.as_view()),
     path('helpcenter/<hcId>/', HelpCenterProfile.as_view()),
     path('contact/', ContactUs.as_view())
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

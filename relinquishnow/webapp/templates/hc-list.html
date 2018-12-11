@@ -1,0 +1,63 @@
+{% extends 'home.html' %}
+{% block slider%}
+{% endblock %}
+{% block main%}
+<div class="card px-3">
+  <div class="row">
+    <div class="col-md-12 text-center p-3">
+      <h4 class="bg-light">Help Centers</h4>
+    </div>
+    <div class="col-md-11 underline m-auto"></div>
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon"><i class="fas fa-search fa-1x"></i></span>
+    <input name="es_text form-control" placeholder="search" class="form-control form-width" type="text">
+  </div>
+  <div class="row my-4 justify-content-between px-3">
+    {% for help_center in hc_list %}
+    <div class="col-md-6 card mb-3">
+      <div class="row p-2">
+        <div class="col-4 mx-0 px-0">
+          <div class="follow-profile">
+            {% if help_center.hc_logo %}
+            {% with help_center.hc_logo as img %}
+            <img src="{{ img.url }}" class="img-fluid z-depth-1 rounded-0">
+            {% endwith %}
+            {% else %}
+            <img src="/static/images/user-profile-default.png" class="img-fluid z-depth-1 rounded-0" alt="user profile image">
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-8">
+          <h6 class="mt-0 font-small">
+            <a href="/helpcenter/{{help_center.hc_id}}" class="font-blue font-weight-bold">{{help_center.hc_name}}</a>
+          </h6>
+          <div class="post-data">
+            <p class="font-small grey-text mb-0">{{help_center.hc_desc}}</p>
+            <p class="mb-1">
+              <a href="{{follower.user_fb_url | default:'#'}}">
+                <i class="fab fa-facebook-square font-blue mr-3 fa-x"></i>
+              </a>
+              <a href="{{follower.user_tw_url | default:'#'}}">
+                <i class="fab fa-twitter-square font-indigo fa-x mr-3"></i>
+              </a>
+              <a href="{{follower.user_insta_url | default:'#'}}">
+                <i class="fab fa-instagram font-red fa-x mr-3"></i>
+              </a>
+              <a href="{{follower.user_youtube_url | default:'#'}}">
+                <i class="fab fa-youtube-square font-red fa-x mr-3"></i>
+              </a>
+              <a href="{{follower.user_other_url | default:'#'}}">
+                <i class="fas fa-globe fa-x"></i>
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+{% block modals %}
+{% endblock %}

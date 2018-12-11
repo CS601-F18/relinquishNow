@@ -208,6 +208,16 @@ class UserProfileEdit(View):
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)   
         
+
+
+class HelpCenterList(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        hc_list = HelpCenter.objects.all()
+        context = {'hc_list': hc_list}  
+        response = render(request, 'hc-list.html', context)
+        return response
+
     
 class HelpCenterProfile(View):
     @method_decorator(login_required)
